@@ -9,6 +9,7 @@ import { PrismaService } from './prisma/prisma.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { MessagesModule } from './messages/messages.module';
 import { ConversationsModule } from './conversations/conversations.module';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -16,6 +17,12 @@ import { ConversationsModule } from './conversations/conversations.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    }),
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'static'),
