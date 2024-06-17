@@ -27,5 +27,12 @@ Pour un projet de messagerie instantanée comme WhatsApp, voici comment GraphQL 
 - Abonnements en Temps Réel : GraphQL supporte les abonnements, ce qui permet de mettre en place des fonctionnalités de messagerie en temps réel.
 - Optimisation des Requêtes : Les clients peuvent combiner des requêtes pour obtenir à la fois des informations sur les utilisateurs et les messages dans une seule requête.
 
+## Utiliser NestJs GraphQL et REDIS
+Comme indiqué plus tôt, GraphQL est un module de NestJs permettant une utilisation combiné très simple. Les messages publiés sont classés dans des canaux, sans savoir quels abonnés (s'il y en a) recevront finalement le message. Les messages échangés par l'intermédiaire des canaux sont fire-and-forget, ce qui signifie que si un message est publié et qu'il n'y a pas d'abonnés intéressés, le message est supprimé et ne peut pas être récupéré.
+
+REDIS permet de stocker dans le cache des requêtes récurrentes ou des requêtes volumineuses.
+Egalement REDIS dispose de son systeme pub/sus qui lui permet de s'interfacer facilement avec NestJs.
+Enfin REDIS peut mettre en place une système de queue pour permettre de consommer un message plus tard.
+
 ## Conclusion
 L'intégration de GraphQL avec NestJs apporte une flexibilité et une efficacité accrues pour le développement d'APIs. Pour une application de messagerie instantanée, GraphQL permet des requêtes personnalisées, une gestion optimisée des données et un support pour les fonctionnalités en temps réel, rendant ainsi l'application plus réactive et performante. Cependant, il faut également prendre en compte la complexité supplémentaire et les défis de performance lors de la mise en œuvre.
