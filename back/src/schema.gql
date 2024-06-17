@@ -1,0 +1,50 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: Int!
+  username: String!
+  avatar: String!
+}
+
+type LoginResponse {
+  token: String!
+  user: User!
+}
+
+type Message {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  users: [User!]!
+  user(username: String!): User!
+  messages: [Message!]!
+  message(id: Int!): Message!
+}
+
+type Mutation {
+  login(loginUserInput: LoginUserInput!): LoginResponse!
+  signup(loginUserInput: LoginUserInput!): User!
+  createMessage(createMessageInput: CreateMessageInput!): Message!
+  updateMessage(updateMessageInput: UpdateMessageInput!): Message!
+  removeMessage(id: Int!): Message!
+}
+
+input LoginUserInput {
+  username: String!
+  password: String!
+}
+
+input CreateMessageInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateMessageInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
