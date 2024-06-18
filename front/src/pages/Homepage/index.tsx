@@ -8,7 +8,7 @@ const Homepage = () => {
         <section className={styles.hp__wrapper}>
           <section className={styles.hp__head}>
             <div className={styles.hp__head__img}>
-              <img src="https://media.licdn.com/dms/image/D4E03AQFNpwnodygZ7Q/profile-displayphoto-shrink_200_200/0/1665477529662?e=2147483647&v=beta&t=pxktk_cZmy7OEXM2LAaUfvHjHXGrFQ05mKfANY6bG2Q" alt="Logo 100"/>
+              <img src="https://www.aussitot.fr/wp-content/uploads/2006/05/skype-avatar.png" alt="Logo 100"/>
               <div className={styles.hp__head__title}>
                 <h1>
                   Welcome!
