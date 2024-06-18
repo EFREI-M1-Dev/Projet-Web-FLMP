@@ -7,8 +7,14 @@ import { PrismaService } from '../prisma/prisma.service';
 export class ConversationsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createConversationInput: CreateConversationInput) {
-    const { userIds } = createConversationInput;
+  async create(
+    createConversationInput: CreateConversationInput,
+    userId: number,
+  ) {
+    const userIdsSet = new Set<number>(createConversationInput.otherUserIds);
+    userIdsSet.add(userId);
+
+    const userIds = Array.from(userIdsSet);
 
     const conversation = await this.prisma.conversation.create({
       data: {

@@ -37,6 +37,9 @@ describe('MessagesProducer', () => {
 
     await producer.addMessageToQueue(sendMessageInput);
 
-    expect(queue.add).toHaveBeenCalledWith('send-message-job', sendMessageInput);
+    expect(queue.add).toHaveBeenCalledWith(
+      'send-message-job',
+      sendMessageInput,
+    );
   });
 });

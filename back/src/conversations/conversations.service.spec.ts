@@ -33,7 +33,7 @@ describe('ConversationsService', () => {
 
   describe('create', () => {
     it('should create a new conversation and return it', async () => {
-      const createInput: CreateConversationInput = { userIds: [1, 2] };
+      const createInput: CreateConversationInput = { otherUserIds: [1, 2] };
       const result = {
         id: 1,
         createdAt: new Date(),
@@ -43,11 +43,11 @@ describe('ConversationsService', () => {
 
       jest.spyOn(prisma.conversation, 'create').mockResolvedValue(result);
 
-      expect(await service.create(createInput)).toEqual(result);
+      expect(await service.create(createInput, 1)).toEqual(result);
       expect(prisma.conversation.create).toHaveBeenCalledWith({
         data: {
           users: {
-            connect: createInput.userIds.map((id) => ({ id })),
+            connect: createInput.otherUserIds.map((id) => ({ id })),
           },
         },
         include: {
