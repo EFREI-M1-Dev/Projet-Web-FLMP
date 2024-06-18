@@ -29,6 +29,28 @@ export class MessagesService {
     return message;
   }
 
+  async saveMessage(data: CreateMessageInput) {
+    const { content, userId, conversationId } = data;
+
+    const message = await this.prisma.message.create({
+      data: {
+        content,
+        author: {
+          connect: { id: userId },
+        },
+        conversation: {
+          connect: { id: conversationId },
+        },
+      },
+      include: {
+        author: true,
+        conversation: true,
+      },
+    });
+
+    return message;
+  }
+
   async getMessages(conversationId: number) {
     return this.prisma.message.findMany({
       where: {

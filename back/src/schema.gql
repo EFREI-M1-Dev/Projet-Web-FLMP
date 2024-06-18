@@ -2,16 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
+type Message {
   id: Int!
-  username: String!
-  avatar: String!
+  content: String!
+  createdAt: DateTime!
+  author: User!
+  conversation: Conversation!
 }
 
-type LoginResponse {
-  token: String!
-  user: User!
-}
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type Conversation {
   id: Int!
@@ -20,17 +22,18 @@ type Conversation {
   messages: [Message!]!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-type Message {
+type User {
   id: Int!
-  content: String!
+  username: String!
+  avatar: String!
   createdAt: DateTime!
-  author: User!
-  conversation: Conversation!
+  conversations: [Conversation!]!
+  messages: [Message!]!
+}
+
+type LoginResponse {
+  token: String!
+  user: User!
 }
 
 type Query {
@@ -47,7 +50,7 @@ type Query {
 type Mutation {
   login(loginUserInput: LoginUserInput!): LoginResponse!
   signup(loginUserInput: LoginUserInput!): User!
-  createMessage(createMessageInput: CreateMessageInput!): Message!
+  createMessage(createMessageInput: CreateMessageInput!): String!
   updateMessage(updateMessageInput: UpdateMessageInput!): Message!
   removeMessage(id: Int!): Message!
   createConversation(createConversationInput: CreateConversationInput!): Conversation!

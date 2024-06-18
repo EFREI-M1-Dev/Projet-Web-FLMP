@@ -3,16 +3,22 @@ import { MessagesService } from './messages.service';
 import { Message } from './entities/message.entity';
 import { CreateMessageInput } from './dto/create-message.input';
 import { UpdateMessageInput } from './dto/update-message.input';
+import { MessagesProducer } from './messages.producer';
 
 @Resolver(() => Message)
 export class MessagesResolver {
-  constructor(private readonly messagesService: MessagesService) {}
+  constructor(
+    private readonly messagesService: MessagesService,
+    private readonly messagesProducer: MessagesProducer,
+  ) {}
 
-  @Mutation(() => Message)
-  createMessage(
+  @Mutation(() => String)
+  async createMessage(
     @Args('createMessageInput') createMessageInput: CreateMessageInput,
   ) {
-    return this.messagesService.create(createMessageInput);
+    await this.messagesProducer.addMessageToQueue(createMessageInput);
+
+    return 'Message queued successfully';
   }
 
   @Query(() => [Message])
