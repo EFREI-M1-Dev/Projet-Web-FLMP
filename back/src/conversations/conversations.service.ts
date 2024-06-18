@@ -1,11 +1,44 @@
 import { Injectable } from '@nestjs/common';
 import { CreateConversationInput } from './dto/create-conversation.input';
 import { UpdateConversationInput } from './dto/update-conversation.input';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ConversationsService {
-  create(createConversationInput: CreateConversationInput) {
-    return 'This action adds a new conversation';
+  constructor(private prisma: PrismaService) {}
+
+  async create(createConversationInput: CreateConversationInput) {
+    const { userIds } = createConversationInput;
+
+    const conversation = await this.prisma.conversation.create({
+      data: {
+        users: {
+          connect: userIds.map((id) => ({ id })),
+        },
+      },
+      include: {
+        users: true,
+        messages: true,
+      },
+    });
+
+    return conversation;
+  }
+
+  async getConversations(userId: number) {
+    return this.prisma.conversation.findMany({
+      where: {
+        users: {
+          some: {
+            id: userId,
+          },
+        },
+      },
+      include: {
+        users: true,
+        messages: true,
+      },
+    });
   }
 
   findAll() {

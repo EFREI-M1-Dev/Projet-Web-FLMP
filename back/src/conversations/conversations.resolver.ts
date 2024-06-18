@@ -16,6 +16,11 @@ export class ConversationsResolver {
     return this.conversationsService.create(createConversationInput);
   }
 
+  @Query(() => [Conversation])
+  async getConversations(@Args('userId', { type: () => Int }) userId: number) {
+    return this.conversationsService.getConversations(userId);
+  }
+
   @Query(() => [Conversation], { name: 'conversations' })
   findAll() {
     return this.conversationsService.findAll();

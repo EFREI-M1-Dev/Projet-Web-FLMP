@@ -15,6 +15,13 @@ export class MessagesResolver {
     return this.messagesService.create(createMessageInput);
   }
 
+  @Query(() => [Message])
+  async getMessages(
+    @Args('conversationId', { type: () => Int }) conversationId: number,
+  ) {
+    return this.messagesService.getMessages(conversationId);
+  }
+
   @Query(() => [Message], { name: 'messages' })
   findAll() {
     return this.messagesService.findAll();
