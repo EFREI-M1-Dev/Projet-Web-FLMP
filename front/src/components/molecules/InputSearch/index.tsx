@@ -10,7 +10,7 @@ type InputSearchProps = {
 const InputSearch = ({ placeholder, value, onChange }: InputSearchProps) => {
   return (
     <div className={styles.input_search}>
-      <Icon name="search" size="small" color="#cecece" />
+      <Icon name="search" size="medium" color="#0B9CD5" />
       <input
         type="text"
         placeholder={placeholder}

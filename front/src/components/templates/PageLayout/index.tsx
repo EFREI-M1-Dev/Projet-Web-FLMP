@@ -1,7 +1,7 @@
 import styles from './styles.module.scss'
 
 /* components */
-import ContactList from './parts/ContactList'
+import NavbarLeft from './parts/NavbarLeft'
 
 type PageLayoutProps = {
   children: React.ReactNode
@@ -10,7 +10,7 @@ type PageLayoutProps = {
 const Pagelayout = ({ children }: PageLayoutProps) => {
   return (
     <div className={styles.page_layout}>
-      <ContactList />
+      <NavbarLeft />
       {children}
     </div>
   )

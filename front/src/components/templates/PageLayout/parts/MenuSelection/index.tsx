@@ -7,11 +7,11 @@ const MenuSelection = ({}: MenuSelectionProps) => {
   return (
     <ul className={styles.menu_selection}>
       <li>
-        <Icon name="house" size="small" color="#000" />
+        <Icon name="house" size="small" color="#0B9CD5" />
         <span>Home</span>
       </li>
       <li>
-        <Icon name="pad" size="small" color="#000" />
+        <Icon name="pad" size="small" color="#0B9CD5" />
         <span>Call phones</span>
       </li>
     </ul>
