@@ -1,21 +1,19 @@
-import ContactList from './parts/ContactList';
-import Header from './parts/Header';
-import styles from './styles.module.scss';
+import styles from './styles.module.scss'
+
+/* components */
+import ContactList from './parts/ContactList'
 
 type PageLayoutProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 const Pagelayout = ({ children }: PageLayoutProps) => {
   return (
     <div className={styles.page_layout}>
-      <div>
-        <Header />
-        <ContactList />
-      </div>
+      <ContactList />
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default Pagelayout;
+export default Pagelayout

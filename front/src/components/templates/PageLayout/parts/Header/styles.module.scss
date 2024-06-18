@@ -3,5 +3,30 @@
   align-items: center;
   gap: 8px;
   padding: 0 20px;
-  height: 60px;
+  padding-top: 34px;
+  padding-bottom: 10px;
+  width: 100%;
+  position: relative;
+
+  .cloud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+  }
+
+  .infos_user {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    > span:first-of-type {
+      font-size: 14px;
+    }
+
+    > span:last-of-type {
+      font-size: 12px;
+      color: #939393;
+    }
+  }
 }

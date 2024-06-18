@@ -1,0 +1,18 @@
+.menu_selection {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+
+  > li {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+}
