@@ -1,0 +1,31 @@
+@import "../../../assets/styles/variables";
+
+.button {
+    font-family: $segoe;
+    background: $darkblue;
+    background-size: 100%;
+    color: $white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.3s ease-in-out;
+    border: none;
+    box-shadow: $boxShadow;
+  
+    &:hover {
+      background: $blue;
+      color: $white;
+    }
+
+    &__gradient {
+        @extend .button;
+        background: $linearGradient;
+      
+        &:hover {
+          background-size: 150%;
+          background-position: right;
+        }
+      }
+}
