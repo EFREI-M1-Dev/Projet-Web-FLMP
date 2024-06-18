@@ -2,13 +2,16 @@ import styles from "./styles.module.scss";
 import {IconHomeNews} from "../../components/atoms/Icons/IconHomeSvg.tsx";
 import {IconMeetHome} from "../../components/atoms/Icons/IconMeetHome.tsx";
 
+import skypeAvatar from '../../assets/img/skype-avatar.png'
+
+
 const Homepage = () => {
   return (
       <main className={styles.hp}>
         <section className={styles.hp__wrapper}>
           <section className={styles.hp__head}>
             <div className={styles.hp__head__img}>
-              <img src="https://www.aussitot.fr/wp-content/uploads/2006/05/skype-avatar.png" alt="Logo 100"/>
+              <img src={skypeAvatar} alt="Logo 100"/>
               <div className={styles.hp__head__title}>
                 <h1>
                   Welcome!

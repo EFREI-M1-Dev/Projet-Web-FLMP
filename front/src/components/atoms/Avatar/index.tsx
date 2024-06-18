@@ -4,12 +4,14 @@ type AvatarProps = {
   status?: 'online' | 'offline'
 }
 
+import skypeAvatar from '../../../assets/img/skype-avatar.png'
+
 const Avatar = ({ status = 'online' }: AvatarProps) => {
   return (
     <div className={styles.avatar}>
       <img
         alt="profil picture"
-        src="https://www.aussitot.fr/wp-content/uploads/2006/05/skype-avatar.png"
+        src={skypeAvatar}
       />
       {status === 'online' && <div className={styles.status} />}
     </div>
