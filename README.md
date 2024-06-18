@@ -2,7 +2,7 @@
 
 ## Groupe
 
-Membres du groupe :
+Membres du Groupe 6 :
 - Florent PARIS
 - Louis LUBINEAU
 - Mattéo VECCHIONNE
