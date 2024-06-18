@@ -2,14 +2,18 @@
 
 .hp {
   font-family: "Segoe UI", sans-serif;
-  max-width: 900px;
-  margin: auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  text-align: left;
-  flex-direction: column;
+  background: linear-gradient(145deg, rgba(244,252,253,1) 0%, rgba(255,255,255,1) 61%, rgba(184,237,251,1) 100%);
+
+  &__wrapper {
+    max-width: 900px;
+    margin: auto;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    flex-direction: column;
+  }
 
   &__head {
     display: flex;
@@ -27,6 +31,9 @@
       img {
         border-radius: 50%;
         border: 1px solid rgba($black, 0.3);
+
+        max-width: 150px;
+        max-height: 150px;
       }
     }
 
@@ -43,7 +50,7 @@
       }
     }
 
-    button{
+    button {
       margin-bottom: 35px;
     }
   }
@@ -69,6 +76,7 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
+      background-color: $white;
 
       svg {
         height: 175px;
@@ -83,8 +91,8 @@
       }
 
       p {
-        font-size: 1rem;
-        font-weight: 200;
+        font-size: .95rem;
+        font-weight: 400;
         line-height: 1.5;
         margin-bottom: 2rem;
         color: #7c817b;

@@ -9,7 +9,7 @@ const Avatar = ({ status = 'online' }: AvatarProps) => {
     <div className={styles.avatar}>
       <img
         alt="profil picture"
-        src="https://i.pinimg.com/736x/3f/95/54/3f9554c93c06760faa9d3de31337b514.jpg"
+        src="https://media.licdn.com/dms/image/D4E03AQFNpwnodygZ7Q/profile-displayphoto-shrink_200_200/0/1665477529662?e=2147483647&v=beta&t=pxktk_cZmy7OEXM2LAaUfvHjHXGrFQ05mKfANY6bG2Q"
       />
       {status === 'online' && <div className={styles.status} />}
     </div>

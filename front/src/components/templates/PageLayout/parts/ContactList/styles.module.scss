@@ -1,3 +1,5 @@
+@import "../../../../../assets/styles/variables";
+
 .contact_list {
   display: flex;
   flex-direction: column;
@@ -7,4 +9,6 @@
   width: 300px;
   left: 0;
   top: 0;
+
+  border-right: 1px solid $borderColor;
 }

@@ -5,55 +5,57 @@ import {IconMeetHome} from "../../components/atoms/Icons/IconMeetHome.tsx";
 const Homepage = () => {
   return (
       <main className={styles.hp}>
-        <section className={styles.hp__head}>
-          <div className={styles.hp__head__img}>
-            <img src="https://via.placeholder.com/150x150" alt="Logo 100"/>
-            <div className={styles.hp__head__title}>
-              <h1>
-                Welcome!
-              </h1>
-              <p>
-                Florent Parigo
-              </p>
+        <section className={styles.hp__wrapper}>
+          <section className={styles.hp__head}>
+            <div className={styles.hp__head__img}>
+              <img src="https://media.licdn.com/dms/image/D4E03AQFNpwnodygZ7Q/profile-displayphoto-shrink_200_200/0/1665477529662?e=2147483647&v=beta&t=pxktk_cZmy7OEXM2LAaUfvHjHXGrFQ05mKfANY6bG2Q" alt="Logo 100"/>
+              <div className={styles.hp__head__title}>
+                <h1>
+                  Welcome!
+                </h1>
+                <p>
+                  Florent Parigo
+                </p>
+              </div>
             </div>
-          </div>
-          <div className={styles.hp__head__btn}>
-            <button className={styles.button}>
-              Partager mon profil
-            </button>
-          </div>
-        </section>
-        <p className={styles.hp__desc}>
-          Voici quelques actions rapides pour vous aider à manipuler Skipe
-        </p>
-        <section className={styles.hp__cards}>
-          <div className={styles.hp__cards__card}>
-            <IconHomeNews/>
-            <h2>Les nouveautés</h2>
-            <p>
-              Restez informé des dernières fonctionnalités et mises à jour de Skype. Ne manquez rien !
-            </p>
-            <button className={styles.button__reverse}>En savoir plus</button>
-          </div>
-          <div className={styles.hp__cards__card}>
-            <IconMeetHome/>
-            <h2>Des rencontres faciles avec n'importe qui</h2>
-            <p>
-              Partagez l'invitation avec n'importe qui, même s'il n'est pas sur Skype. Aucune inscription ni aucun téléchargement n'est nécessaire.
-            </p>
-            <button className={styles.button__reverse}>
-              Rencontrer maintenant
-            </button>
-          </div>
-        </section>
-        <section className={styles.hp__bottom}>
-          <p>
-            Vous avez besoin d'aide ?
-            Allez vous faire foutre.
+            <div className={styles.hp__head__btn}>
+              <button className={styles.button}>
+                Share profile
+              </button>
+            </div>
+          </section>
+          <p className={styles.hp__desc}>
+            Here are some quick actions to get you started
           </p>
-          <a href="#" className={styles.hp__bottom__link}>
-            En savoir plus
-          </a>
+          <section className={styles.hp__cards}>
+            <div className={styles.hp__cards__card}>
+              <IconHomeNews/>
+              <h2>What's news in Skype</h2>
+              <p>
+                Stay up to date with the latest features, news, and updates from Skype. Don't miss a thing.
+              </p>
+              <button className={styles.button__reverse}>Learn more</button>
+            </div>
+            <div className={styles.hp__cards__card}>
+              <IconMeetHome/>
+              <h2>Easy meetings with anyone</h2>
+              <p>
+                Share the invite with anyone even if they aren't on Skype. No signups or downloads required.
+              </p>
+              <button className={styles.button__reverse}>
+                Meet now
+              </button>
+            </div>
+          </section>
+          <section className={styles.hp__bottom}>
+            <p>
+              You need some help ?
+              Go fuck yourself.
+            </p>
+            <a href="#" className={styles.hp__bottom__link}>
+              Learn more
+            </a>
+          </section>
         </section>
       </main>
   );
