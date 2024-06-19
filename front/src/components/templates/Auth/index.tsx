@@ -5,7 +5,7 @@ import styles from './styles.module.scss'
 import { useState } from 'react'
 
 
-export type UserInfoPropType = {
+export type UserInfoProps = {
 	name: string,
 	password: string
 };
@@ -20,7 +20,7 @@ type AuthPropType = {
 };
 
 const Auth = ({title, info, buttonText, redirectionLink, redirectionText}: AuthPropType) => {
-	const [userInfo, setUserInfo] = useState<UserInfoPropType>({name: '', password: ''});
+	const [userInfo, setUserInfo] = useState<UserInfoProps>({name: '', password: ''});
 
 	const handleChangeUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
@@ -28,8 +28,6 @@ const Auth = ({title, info, buttonText, redirectionLink, redirectionText}: AuthP
 		  ...userInfo,
 		  [name]: value,
 		})
-
-		console.log(userInfo);
 	};
 
 
@@ -45,7 +43,7 @@ const Auth = ({title, info, buttonText, redirectionLink, redirectionText}: AuthP
 						label='Skype Name'
 						inputType='text'
 						placeholder=''
-						name='skypeName'
+						name='name'
 						value={userInfo.name}
 						onChange={handleChangeUserInfo}/>
 					
