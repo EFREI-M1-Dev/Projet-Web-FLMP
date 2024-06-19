@@ -5,7 +5,7 @@ const Login = () => {
 		<Auth 
 			title='Welcome back!'
 			info='Sign in'
-			buttonText='Sign me in.'
+			buttonText='Sign me in'
 			redirectionLink='/register'
 			redirectionText='Create new account'
 		/>

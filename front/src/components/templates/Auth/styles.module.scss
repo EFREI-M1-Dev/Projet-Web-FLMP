@@ -1,3 +1,5 @@
+@import "../../../assets/styles/variables";
+
 .container{
     display: grid;
     width: 100%;
@@ -8,11 +10,11 @@
 
     .header{
         grid-row: 1;
-        background-color: #00BBFF;
-        line-height: 100px;
+        background-color: $darkblue;
+        line-height: 90px;
 
         &__title{
-            display: inline-block;
+            display: inline;
             color: white;
             font-size: 1.9rem;
             font-weight: bold;
