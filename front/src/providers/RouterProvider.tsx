@@ -3,6 +3,7 @@ import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { ROUTES } from '../config/constants'
 
 /* pages */
+
 import Homepage from '../pages/Homepage'
 import Chat from '../pages/Chat'
 import Login from '../pages/Login'
@@ -13,10 +14,19 @@ import { setLoggedUser } from '../features/userConnected'
 import AddContact from '../pages/AddContact'
 import Pagelayout from '../components/templates/PageLayout'
 
+
 /* export const router = createBrowserRouter([
   {
     path: ROUTES.HOME,
     element: <Homepage />,
+  },
+  {
+    path: ROUTES.LOGIN,
+    element: <Login />,
+  },
+  {
+    path: ROUTES.REGISTER,
+    element: <Register />,
   },
   {
     path: ROUTES.CHAT,
