@@ -40,6 +40,20 @@ const NavbarLeft = () => {
               <span>Online</span>
             </div>
           </li>
+          <li>
+            <Avatar status={"away"}/>
+            <div className={styles.infos}>
+              <span>Floflo</span>
+              <span>Away</span>
+            </div>
+          </li>
+          <li>
+            <Avatar status={"nodisturb"}/>
+            <div className={styles.infos}>
+              <span>Louis</span>
+              <span>No disturbing</span>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
