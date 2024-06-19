@@ -14,7 +14,6 @@ import { setLoggedUser } from '../features/userConnected'
 import AddContact from '../pages/AddContact'
 import Pagelayout from '../components/templates/PageLayout'
 
-
 /* export const router = createBrowserRouter([
   {
     path: ROUTES.HOME,
@@ -97,7 +96,7 @@ const ActualRouter = () => {
   dispatch(
     setLoggedUser({
       token:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwic3ViIjoxLCJpYXQiOjE3MTg4MDU0MDAsImV4cCI6MTcxODgwOTAwMH0.gSsF3WRpVKhgRAFaHleCWvDPHiPVaFtQ-fVk2jBs_j0',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwic3ViIjoxLCJpYXQiOjE3MTg4MDkxNTAsImV4cCI6MTcxODgxMjc1MH0.j4WX5ooF_cYL0FtcGwclRfGeq0E5tzeBy0ZNsj_VDUk',
       user: {
         id: 1,
         username: 'test',
