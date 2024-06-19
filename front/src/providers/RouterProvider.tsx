@@ -4,8 +4,9 @@ import { ROUTES } from '../config/constants';
 
 /* pages */
 import Homepage from '../pages/Homepage';
-import Chat from '../pages/Chat';
 import Login from '../pages/Auth/Login';
+import Register from '../pages/Auth/Register';
+import Chat from '../pages/Chat';
 
 export const router = createBrowserRouter([
   {
@@ -13,11 +14,16 @@ export const router = createBrowserRouter([
     element: <Homepage />,
   },
   {
-    path: ROUTES.CHAT,
-    element: <Chat />,
-  },
-  {
     path: ROUTES.LOGIN,
     element: <Login />,
   },
+  {
+    path: ROUTES.REGISTER,
+    element: <Register />,
+  },
+  {
+    path: ROUTES.CHAT,
+    element: <Chat />,
+  },
+
 ]);
