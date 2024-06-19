@@ -13,6 +13,7 @@
     transition: all 0.3s ease-in-out;
     border: none;
     box-shadow: $boxShadow;
+    width: fit-content;
   
     &:hover {
       background: $blue;
