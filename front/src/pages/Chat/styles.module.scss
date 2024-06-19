@@ -185,6 +185,15 @@ $rightConv: #e5f6fd;
         }
       }
     }
+    &__icons{
+      display: flex;
+      align-items: center;
+      gap: .76rem;
+
+      svg{
+        width: 15px;
+      }
+    }
   }
 }
 

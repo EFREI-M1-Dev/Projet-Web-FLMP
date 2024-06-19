@@ -115,11 +115,12 @@ const Chat = () => {
                 <Icon name='send'/>
               </button>
             </div>
-            <div className={styles.chat__footer__icons}>
+            <label htmlFor='text' className={styles.chat__footer__icons}>
               <Icon name='camera' />
               <Icon name='video' color='#0B9CD5'/>
               <Icon name='upload' />
-            </div>
+              <Icon name='user' />
+            </label>
           </div>
         </footer>
       </main>

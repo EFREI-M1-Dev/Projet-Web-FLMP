@@ -9,6 +9,7 @@ import Camera from "./icons/Camera.tsx";
 import Phone from "./icons/Phone.tsx";
 import Video from "./icons/Video.tsx";
 import FileUpload from "./icons/FileUpload.tsx";
+import User from "./icons/User.tsx";
 
 type IconMap = {
   [key: string]: React.FC<React.SVGProps<SVGSVGElement>>
@@ -24,6 +25,7 @@ const icons: IconMap = {
   camera: Camera,
   phone: Phone,
   video: Video,
+  user: User,
   upload: FileUpload,
 }
 
