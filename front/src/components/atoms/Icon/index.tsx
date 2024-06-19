@@ -3,7 +3,7 @@ import styles from './styles.module.scss'
 
 type IconProps = {
   name: string
-  size: 'small' | 'medium' | 'large'
+  size?: 'small' | 'medium' | 'large'
   color?: string
 }
 
