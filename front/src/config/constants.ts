@@ -1,10 +1,12 @@
 export const API = {
   GET_USER_INFOS: '/user/infos',
-};
+}
 
 export const ROUTES = {
-  HOME: '/',
   LOGIN: '/login',
   REGISTER: '/register',
+  NOT_FOUND: '/404',
+  HOME: '/',
   CHAT: '/chat/:id',
-};
+  ADD_CONTACT: '/add-contact',
+}

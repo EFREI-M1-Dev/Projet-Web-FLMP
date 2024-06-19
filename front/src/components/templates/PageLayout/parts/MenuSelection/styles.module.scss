@@ -5,17 +5,21 @@
   flex-direction: column;
   padding: 10px 0;
 
-  > li {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    gap: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    color: $darkblue;
+  a {
+    text-decoration: none;
 
-    &:hover {
-      background-color: #f0f0f0;
+    > li {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      color: $darkblue;
+
+      &:hover {
+        background-color: $lightblue;
+      }
     }
   }
 }

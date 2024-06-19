@@ -1,17 +1,17 @@
 import styles from './styles.module.scss'
+import { Outlet } from 'react-router'
 
 /* components */
 import NavbarLeft from './parts/NavbarLeft'
+import { useAppSelector } from '../../../hooks/reduxHooks'
 
-type PageLayoutProps = {
-  children: React.ReactNode
-}
+const Pagelayout = () => {
+  const token = useAppSelector((state) => state.user?.token)
 
-const Pagelayout = ({ children }: PageLayoutProps) => {
   return (
-    <div className={styles.page_layout}>
-      <NavbarLeft />
-      {children}
+    <div className={token && styles.page_layout}>
+      {token && <NavbarLeft />}
+      <Outlet />
     </div>
   )
 }

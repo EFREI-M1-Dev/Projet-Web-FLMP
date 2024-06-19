@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MessagesResolver } from './messages.resolver';
 import { MessagesService } from './messages.service';
 import { MessagesProducer } from './messages.producer';
+import { GraphQLContext } from '../interfaces/graphql-context.interface';
 
 describe('MessagesResolver', () => {
   let resolver: MessagesResolver;
@@ -42,9 +43,20 @@ describe('MessagesResolver', () => {
         conversationId: 1,
       };
 
-      await resolver.createMessage(sendMessageInput);
+      const context: GraphQLContext = {
+        req: {
+          user: {
+            userId: 1,
+            username: '',
+          },
+        },
+      };
 
-      expect(messagesProducer.addMessageToQueue).toHaveBeenCalledWith(sendMessageInput);
+      await resolver.createMessage(sendMessageInput, context);
+
+      expect(messagesProducer.addMessageToQueue).toHaveBeenCalledWith(
+        sendMessageInput,
+      );
     });
 
     it('should return confirmation message', async () => {
@@ -54,7 +66,16 @@ describe('MessagesResolver', () => {
         conversationId: 1,
       };
 
-      const result = await resolver.createMessage(sendMessageInput);
+      const context: GraphQLContext = {
+        req: {
+          user: {
+            userId: 1,
+            username: '',
+          },
+        },
+      };
+
+      const result = await resolver.createMessage(sendMessageInput, context);
 
       expect(result).toBe('Message queued successfully');
     });
