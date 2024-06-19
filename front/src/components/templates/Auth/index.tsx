@@ -3,6 +3,7 @@ import Button from '../../atoms/Button';
 import InputText from '../../molecules/InputText';
 import styles from './styles.module.scss'
 import { useState } from 'react'
+import skypeLogo from '../../../assets/img/skype-logo.svg'
 
 
 export type UserInfoProps = {
@@ -38,6 +39,7 @@ const Auth = ({title, info, buttonText, redirectionLink, redirectionText}: AuthP
 			</div>
 			<div className={styles.login}>
 				<form>
+					<img src={skypeLogo} alt='Skype Logo'/>
 					<h1>{info}</h1>					
 					<InputText
 						label='Skype Name'
