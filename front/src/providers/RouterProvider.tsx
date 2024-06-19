@@ -12,7 +12,6 @@ import NotFound from '../pages/NotFound'
 import { setLoggedUser } from '../features/userConnected'
 import AddContact from '../pages/AddContact'
 import Pagelayout from '../components/templates/PageLayout'
-import { useEffect, useState } from 'react'
 
 /* export const router = createBrowserRouter([
   {

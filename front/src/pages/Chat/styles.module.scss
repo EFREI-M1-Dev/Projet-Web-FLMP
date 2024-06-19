@@ -203,6 +203,20 @@ $rightConv: #e5f6fd;
     .chat__message__text {
       background-color: $leftConv;
       max-width: 45%;
+      position: relative;
+
+      &::before{
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -5px;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 5px solid transparent;
+        border-right: 5px solid $leftConv;
+        border-bottom: 5px solid transparent;
+      }
     }
   }
 
@@ -213,6 +227,21 @@ $rightConv: #e5f6fd;
       align-self: flex-end;
       margin-right: 0;
       margin-left: 55%;
+      position: relative;
+
+
+      &::before{
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -5px;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 5px solid transparent;
+        border-left: 5px solid $rightConv;
+        border-bottom: 5px solid transparent;
+      }
     }
   }
 }
