@@ -11,21 +11,28 @@ type ContactType = {
 const AddContact = () => {
   const [research, setResearch] = useState<string>('')
   const [researchResults, setResearchResults] = useState<ContactType[]>([])
+  const [isSearched, setIsSearched] = useState<boolean>(false)
 
   const { loading, data, refetch } = useGetContactsQuery({})
 
   useEffect(() => {
-    if (data?.users) {
+    if (data?.users && !loading && research !== '') {
       setResearchResults(data?.users as ContactType[])
     }
   }, [loading, data])
 
   const handleResearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setResearch(e.target.value)
+    if (e.target.value.length > 0) {
+      setResearch(e.target.value)
+    } else {
+      setIsSearched(false)
+      setResearch('')
+    }
   }
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
+    setIsSearched(true)
     refetch({ filter: { username: research } })
   }
 
@@ -35,7 +42,13 @@ const AddContact = () => {
         <input type="text" value={research} onChange={handleResearch} />
         <button>Search</button>
       </form>
-      {researchResults.length > 0 && (
+      {loading ? (
+        <p>loading...</p>
+      ) : researchResults.length === 0 && isSearched ? (
+        <p>No result for "{research}"</p>
+      ) : !isSearched ? (
+        <p>Enter username to research...</p>
+      ) : (
         <ul>
           {researchResults.map((contact) => (
             <li key={contact.id}>

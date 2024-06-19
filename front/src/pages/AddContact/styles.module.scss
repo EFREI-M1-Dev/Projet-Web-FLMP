@@ -1,5 +1,6 @@
 .add_contact {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 30px 2rem;
@@ -11,6 +12,26 @@
 
     input {
       width: 100%;
+    }
+  }
+
+  ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 10px;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+
+      img {
+        aspect-ratio: 1/1;
+        height: 100%;
+      }
     }
   }
 }
