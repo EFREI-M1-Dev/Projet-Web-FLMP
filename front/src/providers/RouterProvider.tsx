@@ -10,8 +10,11 @@ import Register from '../pages/Register'
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks'
 import NotFound from '../pages/NotFound'
 import { setLoggedUser } from '../features/userConnected'
+import AddContact from '../pages/AddContact'
+import Pagelayout from '../components/templates/PageLayout'
+import { useEffect, useState } from 'react'
 
-export const router = createBrowserRouter([
+/* export const router = createBrowserRouter([
   {
     path: ROUTES.HOME,
     element: <Homepage />,
@@ -21,8 +24,41 @@ export const router = createBrowserRouter([
     element: <Chat />,
   },
   {
+    path: ROUTES.ADD_CONTACT,
+    element: <AddContact />,
+  },
+  {
     path: ROUTES.NOT_FOUND,
     element: <NotFound />,
+  },
+  {
+    path: '*',
+    element: <Navigate to="/404" replace={true} />,
+  },
+]) */
+
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Pagelayout />,
+    children: [
+      {
+        path: ROUTES.HOME,
+        element: <Homepage />,
+      },
+      {
+        path: ROUTES.CHAT,
+        element: <Chat />,
+      },
+      {
+        path: ROUTES.ADD_CONTACT,
+        element: <AddContact />,
+      },
+      {
+        path: ROUTES.NOT_FOUND,
+        element: <NotFound />,
+      },
+    ],
   },
   {
     path: '*',
@@ -59,7 +95,12 @@ const ActualRouter = () => {
     })
   )
 
-  return <RouterProvider router={token ? router : authRouter} />
+  return (
+    <RouterProvider
+      router={token.token ? router : authRouter}
+      /* fallbackElement={<BigSpinner />} */
+    />
+  )
 }
 
 export default ActualRouter

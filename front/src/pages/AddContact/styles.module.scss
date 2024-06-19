@@ -1,0 +1,16 @@
+.add_contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 2rem;
+
+  form {
+    display: flex;
+    gap: 4px;
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
+}

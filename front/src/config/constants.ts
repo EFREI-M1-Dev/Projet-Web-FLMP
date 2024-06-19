@@ -8,4 +8,5 @@ export const ROUTES = {
   NOT_FOUND: '/404',
   HOME: '/',
   CHAT: '/chat/:id',
+  ADD_CONTACT: '/add-contact',
 }

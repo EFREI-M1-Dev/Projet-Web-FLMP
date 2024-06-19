@@ -7,7 +7,7 @@ const initialState = {
   password: '',
   username: '',
   img: '',
-  token: 'dbjzh',
+  token: '',
   isFetching: false,
   isSuccess: false,
   isError: false,

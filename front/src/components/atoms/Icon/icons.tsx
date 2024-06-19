@@ -1,15 +1,16 @@
 /* icons */
+import AddContact from './icons/AddContact'
 import House from './icons/House'
 import Pad from './icons/Pad'
 import Search from './icons/Search'
-import Send from "./icons/Send";
-import ArrowBottom from "./icons/ArrowBottom.tsx";
-import Emote from "./icons/Emote.tsx";
-import Camera from "./icons/Camera.tsx";
-import Phone from "./icons/Phone.tsx";
-import Video from "./icons/Video.tsx";
-import FileUpload from "./icons/FileUpload.tsx";
-import User from "./icons/User.tsx";
+import Send from './icons/Send'
+import ArrowBottom from './icons/ArrowBottom.tsx'
+import Emote from './icons/Emote.tsx'
+import Camera from './icons/Camera.tsx'
+import Phone from './icons/Phone.tsx'
+import Video from './icons/Video.tsx'
+import FileUpload from './icons/FileUpload.tsx'
+import User from './icons/User.tsx'
 
 type IconMap = {
   [key: string]: React.FC<React.SVGProps<SVGSVGElement>>
@@ -27,6 +28,7 @@ const icons: IconMap = {
   video: Video,
   user: User,
   upload: FileUpload,
+  add_contact: AddContact,
 }
 
 export default icons
