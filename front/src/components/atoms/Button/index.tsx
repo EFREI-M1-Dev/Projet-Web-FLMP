@@ -1,13 +1,13 @@
 import styles from './styles.module.scss'
 
-type ButtonTextProps = {
+type ButtonProps = {
     text: string
 }
 
-const ButtonText = ({text}: ButtonTextProps) => {
+const Button = ({text}: ButtonProps) => {
     return (
         <button className={styles.button}>{text}</button>
     )
 }
 
-export default ButtonText
+export default Button

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import ButtonText from '../../atoms/ButtonText';
+import Button from '../../atoms/Button';
 import InputText from '../../molecules/InputText';
 import styles from './styles.module.scss'
 import { useState } from 'react'
@@ -56,7 +56,7 @@ const Auth = ({title, info, buttonText, redirectionLink, redirectionText}: AuthP
 						value={userInfo.password}
 						onChange={handleChangeUserInfo}/>
 
-					<ButtonText text={buttonText}/>
+					<Button text={buttonText}/>
 					<Link className={styles.link} to={redirectionLink}>{redirectionText}</Link>
 				</form>
 			</div>
