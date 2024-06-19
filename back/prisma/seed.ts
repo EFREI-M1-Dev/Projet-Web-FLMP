@@ -43,7 +43,40 @@ async function main() {
     },
   });
 
-  console.log('Users created successfully.');
+  const createConversationWithMessages = async (
+    user1Id: number,
+    user2Id: number,
+  ) => {
+    const conversation = await prisma.conversation.create({
+      data: {
+        users: {
+          connect: [{ id: user1Id }, { id: user2Id }],
+        },
+      },
+    });
+
+    await prisma.message.createMany({
+      data: [
+        {
+          content: 'Hello!',
+          authorId: user1Id,
+          conversationId: conversation.id,
+        },
+        {
+          content: 'How are you?',
+          authorId: user2Id,
+          conversationId: conversation.id,
+        },
+      ],
+    });
+  };
+
+  await createConversationWithMessages(user1.id, user2.id);
+  await createConversationWithMessages(user2.id, user3.id);
+  await createConversationWithMessages(user3.id, user4.id);
+  await createConversationWithMessages(user4.id, user1.id);
+
+  console.log('Users, conversations, and messages created successfully.');
 }
 
 main()

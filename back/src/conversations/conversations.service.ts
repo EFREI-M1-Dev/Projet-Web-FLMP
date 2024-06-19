@@ -1,14 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { CreateConversationInput } from './dto/create-conversation.input';
 import { UpdateConversationInput } from './dto/update-conversation.input';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ConversationsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createConversationInput: CreateConversationInput) {
-    const { userIds } = createConversationInput;
+  async create(
+    createConversationInput: CreateConversationInput,
+    userId: number,
+  ) {
+    const userIdsSet = new Set<number>(createConversationInput.otherUserIds);
+    userIdsSet.add(userId);
+
+    const userIds = Array.from(userIdsSet);
 
     const conversation = await this.prisma.conversation.create({
       data: {
