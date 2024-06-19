@@ -25,16 +25,24 @@
         grid-row: 2;
         padding: 40px 0 0 30px;
 
-        h1{
-            font-size: 30px;
-            font-weight: bold;
-            text-align: center;
-        }
+
 
         form{
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+
+            h1{
+                font-size: 30px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .link{
+                text-align: center;
+            }
         }
     }
 }

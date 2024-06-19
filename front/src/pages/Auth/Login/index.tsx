@@ -1,11 +1,13 @@
-import Auth from '../../../components/molecules/Auth';
+import Auth from '../../../components/templates/Auth';
 
 const Login = () => {
 	return (
 		<Auth 
 			title='Welcome back!'
-			info='Sign in to continue to Skype'
+			info='Sign in'
 			buttonText='Sign me in.'
+			redirectionLink='/register'
+			redirectionText='Create new account'
 		/>
 	);
 };

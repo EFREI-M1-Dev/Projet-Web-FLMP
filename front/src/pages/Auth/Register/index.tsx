@@ -1,4 +1,4 @@
-import Auth from '../../../components/molecules/Auth';
+import Auth from '../../../components/templates/Auth';
 
 const Register = () => {
 	return (
@@ -6,6 +6,8 @@ const Register = () => {
 			title='Welcome to Skype.'
 			info='Create account'
 			buttonText='Register me in.'
+			redirectionLink='/login'
+			redirectionText='Sign in'
 		/>
 	);
 };

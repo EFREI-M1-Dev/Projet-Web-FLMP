@@ -1,23 +1,26 @@
-import ButtonText from '../../../components/atoms/ButtonText';
-import InputText from '../../../components/molecules/InputText';
+import { Link } from 'react-router-dom';
+import ButtonText from '../../atoms/ButtonText';
+import InputText from '../../molecules/InputText';
 import styles from './styles.module.scss'
 import { useState } from 'react'
 
 
 export type UserInfoPropType = {
-	name?: string,
-	password?: string
+	name: string,
+	password: string
 };
 
 
 type AuthPropType = {
 	title: string,
 	info: string,
-	buttonText: string
+	buttonText: string,
+	redirectionLink: string,
+	redirectionText: string
 };
 
-const Auth = ({title, info, buttonText}: AuthPropType) => {
-	const [userInfo, setUserInfo] = useState<UserInfoPropType>({name: undefined, password: undefined});
+const Auth = ({title, info, buttonText, redirectionLink, redirectionText}: AuthPropType) => {
+	const [userInfo, setUserInfo] = useState<UserInfoPropType>({name: '', password: ''});
 
 	const handleChangeUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
@@ -25,6 +28,8 @@ const Auth = ({title, info, buttonText}: AuthPropType) => {
 		  ...userInfo,
 		  [name]: value,
 		})
+
+		console.log(userInfo);
 	};
 
 
@@ -34,14 +39,14 @@ const Auth = ({title, info, buttonText}: AuthPropType) => {
 				<h1 className={styles.header__title}>{title}</h1>
 			</div>
 			<div className={styles.login}>
-				<h1>{info}</h1>
 				<form>
+					<h1>{info}</h1>					
 					<InputText
 						label='Skype Name'
 						inputType='text'
 						placeholder=''
 						name='skypeName'
-						value={userInfo.name!}
+						value={userInfo.name}
 						onChange={handleChangeUserInfo}/>
 					
 
@@ -50,10 +55,11 @@ const Auth = ({title, info, buttonText}: AuthPropType) => {
 						inputType='password'
 						placeholder=''
 						name='password'
-						value={userInfo.password!}
+						value={userInfo.password}
 						onChange={handleChangeUserInfo}/>
 
 					<ButtonText text={buttonText}/>
+					<Link className={styles.link} to={redirectionLink}>{redirectionText}</Link>
 				</form>
 			</div>
 		</div>
