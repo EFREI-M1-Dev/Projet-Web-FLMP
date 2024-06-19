@@ -50,7 +50,7 @@ const Chat = () => {
             </div>
             <div className={styles.chat__message__text}>
               <p>
-                I'm fine, thank you!
+                I'm busy rn
               </p>
             </div>
             <div className={styles.chat__message__date}>
@@ -61,7 +61,7 @@ const Chat = () => {
           <div className={`${styles.chat__message} ${styles.message__right}`}>
             <div className={styles.chat__message__text}>
               <p>
-                Are you gay ?
+                Can I ask you something ?
               </p>
             </div>
             <div className={styles.chat__message__date}>
@@ -75,7 +75,7 @@ const Chat = () => {
             </div>
             <div className={styles.chat__message__text}>
               <p>
-                ofc my love
+                Sure
               </p>
             </div>
             <div className={styles.chat__message__date}>
@@ -86,7 +86,7 @@ const Chat = () => {
           <div className={`${styles.chat__message} ${styles.message__right}`}>
             <div className={styles.chat__message__text}>
               <p>
-                LETS FUCKING GOOOO!
+                Can you help me with my homework?
               </p>
             </div>
             <div className={styles.chat__message__date}>
