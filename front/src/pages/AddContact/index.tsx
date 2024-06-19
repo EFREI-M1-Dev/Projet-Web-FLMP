@@ -52,8 +52,10 @@ const AddContact = () => {
         <ul>
           {researchResults.map((contact) => (
             <li key={contact.id}>
-              <img src={contact.avatar} alt={contact.username} />
-              <p>{contact.username}</p>
+              <div className={styles.infos}>
+                <img src={contact.avatar} alt={contact.username} />
+                <p>{contact.username}</p>
+              </div>
               <button>Add</button>
             </li>
           ))}

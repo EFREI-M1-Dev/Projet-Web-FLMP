@@ -169,6 +169,11 @@ export type User = {
   username: Scalars['String']['output'];
 };
 
+export type GetConversationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetConversationsQuery = { __typename?: 'Query', getConversations: Array<{ __typename?: 'Conversation', id: number, createdAt: any, users: Array<{ __typename?: 'User', id: number, username: string }> }> };
+
 export type GetContactsQueryVariables = Exact<{
   filter?: InputMaybe<FilterUserInput>;
 }>;
@@ -177,6 +182,50 @@ export type GetContactsQueryVariables = Exact<{
 export type GetContactsQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: number, username: string, avatar: string }> };
 
 
+export const GetConversationsDocument = gql`
+    query getConversations {
+  getConversations {
+    id
+    createdAt
+    users {
+      id
+      username
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetConversationsQuery__
+ *
+ * To run a query within a React component, call `useGetConversationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetConversationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetConversationsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetConversationsQuery(baseOptions?: Apollo.QueryHookOptions<GetConversationsQuery, GetConversationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetConversationsQuery, GetConversationsQueryVariables>(GetConversationsDocument, options);
+      }
+export function useGetConversationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetConversationsQuery, GetConversationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetConversationsQuery, GetConversationsQueryVariables>(GetConversationsDocument, options);
+        }
+export function useGetConversationsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetConversationsQuery, GetConversationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetConversationsQuery, GetConversationsQueryVariables>(GetConversationsDocument, options);
+        }
+export type GetConversationsQueryHookResult = ReturnType<typeof useGetConversationsQuery>;
+export type GetConversationsLazyQueryHookResult = ReturnType<typeof useGetConversationsLazyQuery>;
+export type GetConversationsSuspenseQueryHookResult = ReturnType<typeof useGetConversationsSuspenseQuery>;
+export type GetConversationsQueryResult = Apollo.QueryResult<GetConversationsQuery, GetConversationsQueryVariables>;
 export const GetContactsDocument = gql`
     query GetContacts($filter: FilterUserInput) {
   users(filter: $filter) {

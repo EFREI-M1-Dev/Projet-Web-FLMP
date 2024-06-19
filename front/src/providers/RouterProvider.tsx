@@ -96,8 +96,10 @@ const ActualRouter = () => {
 
   dispatch(
     setLoggedUser({
-      token: 'test',
+      token:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwic3ViIjoxLCJpYXQiOjE3MTg4MDU0MDAsImV4cCI6MTcxODgwOTAwMH0.gSsF3WRpVKhgRAFaHleCWvDPHiPVaFtQ-fVk2jBs_j0',
       user: {
+        id: 1,
         username: 'test',
         avatar: 'test',
       },

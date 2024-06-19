@@ -1,0 +1,10 @@
+query getConversations {
+  getConversations {
+    id
+    createdAt
+    users {
+      id
+      username
+    }
+  }
+}
