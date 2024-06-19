@@ -1,11 +1,15 @@
-import styles from './styles.module.scss'
+import Auth from '../../components/templates/Auth';
 
 const Login = () => {
-  return (
-    <div className={styles.login}>
-      <h1>Login</h1>
-    </div>
-  )
-}
+	return (
+		<Auth 
+			title='Welcome back!'
+			info='Sign in'
+			buttonText='Sign me in'
+			redirectionLink='/register'
+			redirectionText='Create new account'
+		/>
+	);
+};
 
-export default Login
+export default Login;

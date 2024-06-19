@@ -1,11 +1,15 @@
-import styles from './styles.module.scss'
+import Auth from '../../components/templates/Auth';
 
 const Register = () => {
-  return (
-    <div className={styles.register}>
-      <h1>Register</h1>
-    </div>
-  )
-}
+	return (
+		<Auth 
+			title='Welcome to Skype'
+			info='Create account'
+			buttonText='Register me'
+			redirectionLink='/login'
+			redirectionText='Sign in'
+		/>
+	);
+};
 
-export default Register
+export default Register;
