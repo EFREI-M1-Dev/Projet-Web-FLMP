@@ -26,9 +26,9 @@
         padding: 40px 0 0 30px;
 
         form{
-            *{
-                margin-bottom: 15px;
-            }
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
     }
 }

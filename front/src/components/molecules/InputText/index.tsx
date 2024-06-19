@@ -5,23 +5,24 @@ type InputTextProps = {
     label: string
     inputType: 'text' | 'password'
     placeholder: string
+    name: string
     value: string
-    name?: string
-    toto?: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const InputText = ({label, inputType, placeholder, value, onChange }: InputTextProps) => {
+const InputText = ({label, inputType, placeholder, name, value, onChange }: InputTextProps) => {
     return (
-        <label className={styles.label}>{label}
+        <div>
+            <label className={styles.label}>{label}</label>
             <input
                 className={styles.input}
                 type={inputType}
                 placeholder={placeholder}
+                name={name}
                 value={value}
                 onChange={onChange}
             />
-        </label>
+        </div>
     )
 }
 
