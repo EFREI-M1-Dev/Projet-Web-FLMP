@@ -34,10 +34,10 @@ const NavbarLeft = () => {
             </div>
           </li>
           <li>
-            <Avatar />
+            <Avatar status={'offline'} />
             <div className={styles.infos}>
               <span>Mattéo</span>
-              <span>Online</span>
+              <span>Offline</span>
             </div>
           </li>
           <li>
