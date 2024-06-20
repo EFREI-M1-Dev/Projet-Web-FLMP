@@ -1,5 +1,7 @@
 # Projet-Web-FLMP
 
+<img src="./assets/screen.png" />
+
 ## Groupe
 
 Membres du Groupe 6 :
