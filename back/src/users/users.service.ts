@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { getRandomInt } from 'src/utils/random';
+import { FilterUserInput } from './dto/filter-user.input';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
@@ -16,8 +18,16 @@ export class UsersService {
     });
   }
 
-  findAll() {
-    return this.prisma.user.findMany();
+  findAll(filter?: FilterUserInput) {
+    const where: Prisma.UserWhereInput = {};
+
+    if (filter?.username) {
+      where.username = {
+        contains: filter.username.toLowerCase(),
+      };
+    }
+
+    return this.prisma.user.findMany({ where });
   }
 
   findOne(username: string) {

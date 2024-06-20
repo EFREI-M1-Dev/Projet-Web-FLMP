@@ -14,10 +14,12 @@ Membres du Groupe 6 :
 Lien du rapport : [Lien](study.md)
 
 ```sh
+docker compose  -f "docker-compose.yml" up -d --build postgres server redis
+```
+
+```sh
+docker compose  -f "docker-compose.yml" up -d --build postgres redis
 cd back
 npx prisma migrate dev
 npm run start:dev
-docker compose  -f "docker-compose.yml" up -d --build postgres redis
-# Shutdown
-docker compose -f "docker-compose.yml" down
 ```

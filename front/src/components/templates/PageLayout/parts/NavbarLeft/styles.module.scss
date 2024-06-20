@@ -27,30 +27,35 @@
       flex-direction: column;
       gap: 4px;
 
-      li {
-        padding: 2px 15px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 12px;
+      > a {
+        text-decoration: none;
 
-        &:hover {
-          background-color: $lightblue;
-        }
-
-        .infos {
+        li {
+          padding: 2px 15px;
+          cursor: pointer;
           display: flex;
-          flex-direction: column;
-          gap: 2px;
+          align-items: center;
+          gap: 12px;
 
-          > span:first-of-type {
-            font-size: 14px;
+          &:hover {
+            background-color: $lightblue;
           }
 
-          > span:last-of-type {
-            font-size: 12px;
-            font-style: italic;
-            color: #939393;
+          .infos {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            > span:first-of-type {
+              font-size: 14px;
+              color: #222222;
+            }
+
+            > span:last-of-type {
+              font-size: 12px;
+              font-style: italic;
+              color: #939393;
+            }
           }
         }
       }

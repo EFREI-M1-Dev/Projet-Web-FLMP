@@ -37,7 +37,7 @@ type LoginResponse {
 }
 
 type Query {
-  users: [User!]!
+  users(filter: FilterUserInput): [User!]!
   user(username: String!): User!
   getMessages(conversationId: Int!): [Message!]!
   messages: [Message!]!
@@ -45,6 +45,10 @@ type Query {
   getConversations: [Conversation!]!
   conversations: [Conversation!]!
   conversation(id: Int!): Conversation!
+}
+
+input FilterUserInput {
+  username: String!
 }
 
 type Mutation {

@@ -1,19 +1,22 @@
 import styles from './styles.module.scss'
 
 type AvatarProps = {
-  status?: 'online' | 'offline'
+  displayStatus?: boolean
+  status?: 'online' | 'offline' | 'away' | 'nodisturb'
 }
 
 import skypeAvatar from '../../../assets/img/skype-avatar.png'
 
-const Avatar = ({ status = 'online' }: AvatarProps) => {
+const Avatar = ({ displayStatus = true, status = 'online' }: AvatarProps) => {
   return (
     <div className={styles.avatar}>
       <img
         alt="profil picture"
         src={skypeAvatar}
       />
-      {status === 'online' && <div className={styles.status} />}
+      {displayStatus && (
+          <span className={`${styles.status} ${styles[`status-${status}`]}`}></span>
+      )}
     </div>
   )
 }

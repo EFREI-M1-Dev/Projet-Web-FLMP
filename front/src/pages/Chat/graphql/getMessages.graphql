@@ -1,0 +1,12 @@
+query getMessages($id: Int!) {
+  getMessages(conversationId: $id) {
+    id
+    content
+    createdAt
+    author {
+      id
+      username
+      avatar
+    }
+  }
+}

@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 
 const initialState = {
-  id: '',
+  id: null,
   mail: '',
   password: '',
   username: '',
   img: '',
-  token: 'dbjzh',
+  token: '',
   isFetching: false,
   isSuccess: false,
   isError: false,
@@ -20,6 +20,7 @@ const userSlice = createSlice({
   reducers: {
     setLoggedUser: (state, action) => {
       state.token = action.payload.token
+      state.id = action.payload.user.id
       state.img = action.payload.user.avatar
       state.username = action.payload.user.username
     },

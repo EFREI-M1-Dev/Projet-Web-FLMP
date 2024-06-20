@@ -9,6 +9,12 @@ services:
       - postgres
     ports:
       - '3000:3000'
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/app-db?schema=public"
+      JWT_SECRET: example-secret-key
+      REDIS_HOST: localhost
+      REDIS_PORT: 6379
+      CLIENT_URL: http://localhost:5173
     restart: always
 
   client:

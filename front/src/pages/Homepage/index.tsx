@@ -44,7 +44,7 @@ const Homepage = () => {
           </div>
         </section>
         <section className={styles.hp__bottom}>
-          <p>You need some help ? Go fuck yourself.</p>
+          <p>You need some help ? Go ahead.</p>
           <a href="#" className={styles.hp__bottom__link}>
             Learn more
           </a>
