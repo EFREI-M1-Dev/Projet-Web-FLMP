@@ -58,7 +58,7 @@ const NavbarLeft = () => {
               </Link>
             )
           })}
-          <a href="">
+          <a href="chat/10">
             <li>
               <Avatar status={'offline'} />
               <div className={styles.infos}>

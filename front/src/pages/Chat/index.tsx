@@ -1,22 +1,50 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router'
 import styles from './styles.module.scss'
 
+/* graphql */
+import { useGetMessagesQuery } from '../../generated/graphql'
+
+/* components */
 import Avatar from '../../components/atoms/Avatar'
 import Icon from '../../components/atoms/Icon'
-import { useGetMessagesQuery } from '../../generated/graphql'
-import { useEffect } from 'react'
-import { useParams } from 'react-router'
+
+/* hooks */
+import { useAppSelector } from '../../hooks/reduxHooks'
+import moment, { Moment } from 'moment'
+
+type MessageProps = {
+  id: number
+  author: {
+    id: number
+    username: string
+    avatar: string
+  }
+  content: string
+  createdAt: string
+}
 
 const Chat = () => {
   const { id } = useParams<{ id: string }>()
   const idValue = id ?? ''
 
-  const { loading, data } = useGetMessagesQuery({
+  const userId = useAppSelector((state: any) => state.user.id)
+
+  const [messages, setMessages] = useState<MessageProps[]>([])
+
+  const { loading, data, refetch } = useGetMessagesQuery({
     variables: { id: parseInt(idValue) },
   })
 
   useEffect(() => {
-    console.log(data)
-  }, [data, loading])
+    refetch()
+    if (data) {
+      console.log('data', data)
+      setMessages(data?.getMessages ?? [])
+    } else {
+      setMessages([])
+    }
+  }, [data, loading, id])
 
   return (
     <main className={styles.chat}>
@@ -39,51 +67,13 @@ const Chat = () => {
           </button>
         </div>
       </header>
-
-      <section className={styles.chat__content}>
-        <div className={`${styles.chat__message} ${styles.message__left}`}>
-          <div className={styles.chat__message__avatar}>
-            <Avatar displayStatus={false} />
-          </div>
-          <div className={styles.chat__message__text}>
-            <p>Hello, how are you?</p>
-          </div>
-          <div className={styles.chat__message__date}>12:00 AM</div>
-        </div>
-        <div className={`${styles.chat__message} ${styles.message__left}`}>
-          <div className={styles.chat__message__avatar}>
-            <Avatar displayStatus={false} />
-          </div>
-          <div className={styles.chat__message__text}>
-            <p>I'm busy rn</p>
-          </div>
-          <div className={styles.chat__message__date}>12:01 AM</div>
-        </div>
-
-        <div className={`${styles.chat__message} ${styles.message__right}`}>
-          <div className={styles.chat__message__text}>
-            <p>Can I ask you something ?</p>
-          </div>
-          <div className={styles.chat__message__date}>12:05 AM</div>
-        </div>
-
-        <div className={`${styles.chat__message} ${styles.message__left}`}>
-          <div className={styles.chat__message__avatar}>
-            <Avatar displayStatus={false} />
-          </div>
-          <div className={styles.chat__message__text}>
-            <p>Sure</p>
-          </div>
-          <div className={styles.chat__message__date}>12:10 AM</div>
-        </div>
-
-        <div className={`${styles.chat__message} ${styles.message__right}`}>
-          <div className={styles.chat__message__text}>
-            <p>Can you help me with my homework?</p>
-          </div>
-          <div className={styles.chat__message__date}>12:39 AM</div>
-        </div>
-      </section>
+      {messages.length > 0 ? (
+        <ChatContent messages={messages} userId={userId} />
+      ) : (
+        <p className={styles.chat__first__message}>
+          Write the first message...
+        </p>
+      )}
 
       <footer className={styles.chat__footer}>
         <div className={styles.chat__footer__content}>
@@ -114,6 +104,59 @@ const Chat = () => {
         </div>
       </footer>
     </main>
+  )
+}
+
+interface ChatContentProps {
+  messages: MessageProps[]
+  userId: string
+}
+
+const ChatContent = ({ messages, userId }: ChatContentProps) => {
+  let previousMessageDate: Moment | null = null
+
+  return (
+    <section className={styles.chat__content}>
+      {messages?.map((message: MessageProps) => {
+        const userConnectedIsAuthor = parseInt(userId) === message?.author?.id
+        const messageDate = moment(message?.createdAt)
+        const isNewDay =
+          !previousMessageDate ||
+          !messageDate.isSame(previousMessageDate, 'day')
+        previousMessageDate = messageDate
+        const moreThanOneYear = moment().diff(messageDate, 'years') > 0
+        const formattedDate = moreThanOneYear
+          ? messageDate.format('dddd DD/MM/YYYY')
+          : messageDate.format('dddd DD/MM')
+
+        return (
+          <div key={message?.id}>
+            {isNewDay && (
+              <div className={styles.chat__message__day}>{formattedDate}</div>
+            )}
+            <div
+              className={`${styles.chat__message} ${
+                userConnectedIsAuthor
+                  ? styles.message__left
+                  : styles.message__right
+              }`}
+            >
+              {userConnectedIsAuthor && (
+                <div className={styles.chat__message__avatar}>
+                  <Avatar displayStatus={false} />
+                </div>
+              )}
+              <div className={styles.chat__message__text}>
+                <p>{message?.content}</p>
+              </div>
+              <div className={styles.chat__message__date}>
+                {messageDate.format('HH:mm')}
+              </div>
+            </div>
+          </div>
+        )
+      })}
+    </section>
   )
 }
 

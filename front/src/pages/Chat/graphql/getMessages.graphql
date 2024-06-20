@@ -6,6 +6,7 @@ query getMessages($id: Int!) {
     author {
       id
       username
+      avatar
     }
   }
 }

@@ -1,4 +1,4 @@
-@import "../../assets/styles/variables";
+@import '../../assets/styles/variables';
 
 $leftConv: #c7ecfc;
 $rightConv: #e5f6fd;
@@ -7,10 +7,9 @@ $rightConv: #e5f6fd;
   min-height: 100vh;
   max-height: 100vh;
   display: grid;
-  grid-template-areas: "header" "content" "footer";
+  grid-template-areas: 'header' 'content' 'footer';
   grid-template-rows: 145px 8fr 150px;
   margin: 0 4rem;
-
 
   &__header {
     grid-area: header;
@@ -48,11 +47,10 @@ $rightConv: #e5f6fd;
       h1 {
         font-weight: 900;
         font-size: 1.8rem;
-
       }
 
       p {
-        margin-top: .5rem;
+        margin-top: 0.5rem;
         font-style: italic;
         color: $grey;
       }
@@ -73,14 +71,25 @@ $rightConv: #e5f6fd;
     margin-top: auto;
   }
 
+  &__message__day {
+    display: flex;
+    justify-content: center;
+    font-weight: 800;
+    color: $grey;
+    font-size: 0.8rem;
+    padding: 20px 0;
+  }
+
   &__message {
     display: grid;
-    grid-template-areas: "avatar text date";
+    grid-template-areas: 'avatar text date';
     grid-template-columns: 75px 1fr 100px;
     grid-template-rows: 50px;
     grid-gap: 1rem;
 
-    &__avatar, &__date, &__text {
+    &__avatar,
+    &__date,
+    &__text {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -108,14 +117,24 @@ $rightConv: #e5f6fd;
       grid-area: date;
       font-weight: 800;
       color: $grey;
-      font-size: .8rem;
+      font-size: 0.8rem;
     }
+  }
+
+  &__first__message {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-weight: 800;
+    color: $grey;
+    font-size: 0.8rem;
+    padding-bottom: 20px;
   }
 
   &__footer {
     padding: 1.5rem 0;
     display: grid;
-    grid-template-areas: ". content .";
+    grid-template-areas: '. content .';
     grid-template-columns: 75px 1fr 100px;
     grid-gap: 1rem;
 
@@ -123,12 +142,12 @@ $rightConv: #e5f6fd;
       grid-area: content;
       display: flex;
       flex-direction: column;
-      gap: .78rem;
+      gap: 0.78rem;
     }
 
     &__label {
       display: flex;
-      font-size: .8rem;
+      font-size: 0.8rem;
       align-items: center;
 
       span {
@@ -146,7 +165,7 @@ $rightConv: #e5f6fd;
     &__input {
       display: flex;
       align-items: center;
-      gap: .5rem;
+      gap: 0.5rem;
 
       & > div {
         flex: 1;
@@ -162,7 +181,7 @@ $rightConv: #e5f6fd;
 
       input {
         width: 100%;
-        padding: .75rem;
+        padding: 0.75rem;
         border: 1px solid $darkblue;
         background-color: $rightConv;
         border-radius: 2px;
@@ -185,12 +204,12 @@ $rightConv: #e5f6fd;
         }
       }
     }
-    &__icons{
+    &__icons {
       display: flex;
       align-items: center;
-      gap: .76rem;
+      gap: 0.76rem;
 
-      svg{
+      svg {
         width: 15px;
       }
     }
@@ -198,15 +217,14 @@ $rightConv: #e5f6fd;
 }
 
 .message {
-
   &__left {
     .chat__message__text {
       background-color: $leftConv;
       max-width: 45%;
       position: relative;
 
-      &::before{
-        content: "";
+      &::before {
+        content: '';
         position: absolute;
         top: 50%;
         left: -5px;
@@ -229,9 +247,8 @@ $rightConv: #e5f6fd;
       margin-left: 55%;
       position: relative;
 
-
-      &::before{
-        content: "";
+      &::before {
+        content: '';
         position: absolute;
         top: 50%;
         right: -5px;
@@ -246,7 +263,6 @@ $rightConv: #e5f6fd;
   }
 }
 
-
 .button {
   background-color: $darkblue;
   cursor: pointer;
@@ -258,7 +274,7 @@ $rightConv: #e5f6fd;
   align-items: center;
   border-radius: 50%;
   border-color: 1px solid $darkblue;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
     background-color: $blue;

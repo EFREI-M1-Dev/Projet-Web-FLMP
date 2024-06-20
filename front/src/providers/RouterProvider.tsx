@@ -96,7 +96,7 @@ const ActualRouter = () => {
   dispatch(
     setLoggedUser({
       token:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwic3ViIjoxLCJpYXQiOjE3MTg4MDkxNTAsImV4cCI6MTcxODgxMjc1MH0.j4WX5ooF_cYL0FtcGwclRfGeq0E5tzeBy0ZNsj_VDUk',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwic3ViIjoxLCJpYXQiOjE3MTg4NjY5NjQsImV4cCI6MTcxODg3MDU2NH0.FiWsy64XQeqAgE23EjKSMaOlj5eHCutyLKrw-qfHH3A',
       user: {
         id: 1,
         username: 'test',

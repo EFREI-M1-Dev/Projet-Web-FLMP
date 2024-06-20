@@ -186,7 +186,7 @@ export type GetMessagesQueryVariables = Exact<{
 }>;
 
 
-export type GetMessagesQuery = { __typename?: 'Query', getMessages: Array<{ __typename?: 'Message', id: number, content: string, createdAt: any, author: { __typename?: 'User', id: number, username: string } }> };
+export type GetMessagesQuery = { __typename?: 'Query', getMessages: Array<{ __typename?: 'Message', id: number, content: string, createdAt: any, author: { __typename?: 'User', id: number, username: string, avatar: string } }> };
 
 
 export const GetConversationsDocument = gql`
@@ -284,6 +284,7 @@ export const GetMessagesDocument = gql`
     author {
       id
       username
+      avatar
     }
   }
 }
