@@ -37,6 +37,7 @@ type LoginResponse {
 }
 
 type Query {
+  getUser: User!
   users(filter: FilterUserInput): [User!]!
   user(username: String!): User!
   getMessages(conversationId: Int!): [Message!]!
