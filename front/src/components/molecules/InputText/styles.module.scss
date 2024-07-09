@@ -1,21 +1,20 @@
-div{
+.input__text{
 
+  label {
+    display: inline;
+    text-align: center;
+    font-size: 15px;
 
+  }
 
-    label{
-        display: inline;
-        text-align: center;
-        font-size: 15px;
-        
-    }
-    input {
-        position: relative;
+  input {
+    position: relative;
 
-        display: block;
-        border-color: grey;
-        border-radius: 5px;
-        height: 40px;
-        width: 350px;
-        margin: 5px 0;
-    }
+    display: block;
+    border-color: grey;
+    border-radius: 5px;
+    height: 40px;
+    width: 350px;
+    margin: 5px 0;
+  }
 }

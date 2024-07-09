@@ -1,7 +1,10 @@
 import styles from './styles.module.scss'
+import React from "react";
 
 type ButtonProps = {
-    text: string
+    children?: string | React.ReactElement[]
+    text: string,
+    onClick?: () => void
 }
 
 const Button = ({text}: ButtonProps) => {

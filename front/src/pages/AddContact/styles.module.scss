@@ -3,18 +3,80 @@
 .add_contact {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 30px 2rem;
+  height: 100vh;
+  background: $background;
 
   form {
     display: flex;
     gap: 4px;
     width: 100%;
+    position: relative;
+
 
     input {
       width: 100%;
+      padding: 0.75rem;
+      border: 1px solid $darkblue;
+      border-radius: 2px;
+      font-size: 1rem;
+      margin: 0;
+      font-family: $segoe;
+
+      &:focus {
+        outline: 1px solid $blue;
+      }
     }
+
+    button{
+      background-color: $darkblue;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 55px;
+      height: 55px;
+      transition: all .2s ease-in-out;
+      cursor: pointer;
+
+      svg {
+        width: 25px;
+      }
+
+      &:hover{
+        background-color: $blue;
+
+      }
+    }
+
+    & > div  {
+      display: flex;
+      flex: 1;
+      gap: .4rem;
+      position: relative;
+
+      button{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto 0;
+        right: .4rem;
+        width: 50px;
+        height: 50px;
+        background-color: transparent;
+      }
+    }
+
+  }
+
+  h1 {
+    font-family: $segoe;
+    font-size: 1.6rem;
+    color: $darkblue;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-align: left;
   }
 
   > p {
@@ -25,36 +87,57 @@
 
   ul {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-top: 2rem;
 
     li {
       display: flex;
       justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      height: 60px;
-      border: 1px solid $lightblue;
+      border: 1px solid $blue;
       border-radius: 12px;
-      padding: 10px 20px;
+      padding: 20px;
       transition: background 150ms;
 
       &:hover {
-        background: $lightblue;
       }
 
       .infos {
         display: flex;
+        flex-direction: column;
         align-items: center;
         gap: 8px;
         height: 100%;
 
+        p{
+          text-transform: uppercase;
+          margin-bottom: .4rem;
+          font-size: 1.2rem;
+          font-weight: 700;
+
+          &:last-child{
+            font-size: 16px;
+            text-transform: lowercase;
+            font-weight: 400;
+            color: $grey;
+
+          }
+        }
+
         img {
           aspect-ratio: 1/1;
           height: 100%;
+          width: 70px;
+          margin-bottom: .5rem;
           border-radius: 100%;
         }
+      }
+
+      button{
+        margin-top: 1rem;
       }
     }
   }

@@ -2,6 +2,7 @@ query GetContacts($filter: FilterUserInput) {
   users(filter: $filter) {
     id
     username
+    createdAt
     avatar
   }
 }

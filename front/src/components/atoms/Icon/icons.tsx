@@ -11,6 +11,8 @@ import Phone from './icons/Phone.tsx'
 import Video from './icons/Video.tsx'
 import FileUpload from './icons/FileUpload.tsx'
 import User from './icons/User.tsx'
+import SearchBold from "./icons/SearchBold.tsx";
+import Cross from "./icons/Cross.tsx";
 
 type IconMap = {
   [key: string]: React.FC<React.SVGProps<SVGSVGElement>>
@@ -18,6 +20,7 @@ type IconMap = {
 
 const icons: IconMap = {
   search: Search,
+  searchBold: SearchBold,
   house: House,
   pad: Pad,
   send: Send,
@@ -29,6 +32,7 @@ const icons: IconMap = {
   user: User,
   upload: FileUpload,
   add_contact: AddContact,
+  cross: Cross
 }
 
 export default icons
