@@ -3,7 +3,7 @@ FROM node:22
 WORKDIR /usr/app
 
 COPY package*.json ./
-RUN npm ci
+RUN npm i
 
 COPY . .
 
