@@ -13,6 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Convert repository owner to lowercase
+        id: convert_repository
+        run: |
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "::set-output name=owner::${OWNER}"
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -29,4 +35,4 @@ jobs:
           context: .
           file: ./back/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}/backend:latest
+          tags: ghcr.io/${{ steps.convert_repository.outputs.owner }}/backend:latest
