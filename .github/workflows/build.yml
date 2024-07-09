@@ -36,3 +36,9 @@ jobs:
 
       - name: Push Docker image to GitHub Container Registry (backend)
         run: docker push ghcr.io/${{ steps.convert_repository.outputs.owner }}/${{ steps.convert_repository.outputs.repo }}-backend:latest
+
+      - name: Build Docker image frontend
+        run: docker build -t ghcr.io/${{ steps.convert_repository.outputs.owner }}/${{ steps.convert_repository.outputs.repo }}-frontend:latest ./front
+
+      - name: Push Docker image to GitHub Container Registry (frontend)
+        run: docker push ghcr.io/${{ steps.convert_repository.outputs.owner }}/${{ steps.convert_repository.outputs.repo }}-frontend:latest
