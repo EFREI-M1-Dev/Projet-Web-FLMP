@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { CreateMessageInput } from './dto/create-message.input';
 import { UpdateMessageInput } from './dto/update-message.input';
 import { PrismaService } from '../prisma/prisma.service';
+import { EventsGateway } from 'src/events/events.gateway';
 
 @Injectable()
 export class MessagesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private eventsGateway: EventsGateway) {}
 
   async create(createMessageInput: CreateMessageInput) {
     const { content, userId, conversationId } = createMessageInput;
@@ -47,6 +48,8 @@ export class MessagesService {
         conversation: true,
       },
     });
+
+    this.eventsGateway.server.emit('message', message);
 
     return message;
   }
