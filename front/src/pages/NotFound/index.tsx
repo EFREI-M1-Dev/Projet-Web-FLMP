@@ -1,15 +1,25 @@
-import { useNavigate } from 'react-router'
-import { ROUTES } from '../../config/constants'
 import styles from './styles.module.scss'
+import Button from "../../components/atoms/Button";
+import {Link} from "react-router-dom";
 
 const NotFound = () => {
-  const navigate = useNavigate()
 
   return (
     <div className={styles.not_found}>
+      <img src="fav.png" alt="Logo Skype"/>
       <h1>404</h1>
-      <p>Page not found</p>
-      <button onClick={() => navigate(ROUTES.HOME)}>Return to home</button>
+      <div>
+        <p>
+          Page not found.
+        </p>
+        <p>
+          Page you search for is missing or has been moved.
+        </p>
+      </div>
+
+      <Link to="/">
+        <Button text={'Return to home'}>Return to home</Button>
+      </Link>
     </div>
   )
 }

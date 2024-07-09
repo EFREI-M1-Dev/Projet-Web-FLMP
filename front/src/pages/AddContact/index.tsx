@@ -5,10 +5,13 @@ import {
   useCreateConversationMutation,
   useGetContactsQuery,
 } from '../../generated/graphql'
+import Icon from "../../components/atoms/Icon";
+import Button from "../../components/atoms/Button";
 
 type ContactType = {
   id: number
   username: string
+  createdAt: string
   avatar: string
 }
 
@@ -16,9 +19,10 @@ const AddContact = () => {
   const [research, setResearch] = useState<string>('')
   const [researchResults, setResearchResults] = useState<ContactType[]>([])
   const [isSearched, setIsSearched] = useState<boolean>(false)
+  const input = document.getElementById('input');
 
   const { loading, data, refetch } = useGetContactsQuery({})
-  const [createConversation, createInfos] = useCreateConversationMutation({
+  const [createConversation] = useCreateConversationMutation({
     refetchQueries: [{ query: GetConversationsDocument }],
   })
 
@@ -43,6 +47,12 @@ const AddContact = () => {
     refetch({ filter: { username: research } })
   }
 
+  const removeInput = () => {
+    setResearch('')
+    setIsSearched(false)
+    input?.focus()
+  }
+
   const handleCreateConversation = (id: number) => {
     createConversation({
       variables: { input: { otherUserIds: [id] } },
@@ -57,9 +67,23 @@ const AddContact = () => {
 
   return (
     <div className={styles.add_contact}>
+      <h1>
+        Add a contact
+      </h1>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <input type="text" value={research} onChange={handleResearch} />
-        <button>Search</button>
+        <div>
+          <input type="text" value={research} onChange={handleResearch} id="input" />
+          {research.length > 0 ? (
+              <button onClick={removeInput} type='reset'>
+                <Icon name='cross'/>
+              </button>
+          ) : (
+              <></>
+          )}
+        </div>
+        <button type='submit'>
+          <Icon name='searchBold' color={'white'}/>
+        </button>
       </form>
       {loading ? (
         <p>loading...</p>
@@ -74,10 +98,11 @@ const AddContact = () => {
               <div className={styles.infos}>
                 <img src={contact.avatar} alt={contact.username} />
                 <p>{contact.username}</p>
+                <p>
+                  @{contact.createdAt}
+                </p>
               </div>
-              <button onClick={() => handleCreateConversation(contact?.id)}>
-                Add
-              </button>
+              <Button onClick={() => handleCreateConversation(contact?.id)}  text={'Add'}/>
             </li>
           ))}
         </ul>

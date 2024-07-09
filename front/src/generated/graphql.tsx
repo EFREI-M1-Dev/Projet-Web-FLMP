@@ -186,7 +186,7 @@ export type GetContactsQueryVariables = Exact<{
 }>;
 
 
-export type GetContactsQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: number, username: string, avatar: string }> };
+export type GetContactsQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: number, username: string, createdAt: any, avatar: string }> };
 
 export type GetMessagesQueryVariables = Exact<{
   id: Scalars['Int']['input'];
@@ -280,6 +280,7 @@ export const GetContactsDocument = gql`
   users(filter: $filter) {
     id
     username
+    createdAt
     avatar
   }
 }
