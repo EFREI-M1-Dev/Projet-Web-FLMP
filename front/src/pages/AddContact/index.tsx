@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
-import { useGetContactsQuery } from '../../generated/graphql'
+import {
+  GetConversationsDocument,
+  useCreateConversationMutation,
+  useGetContactsQuery,
+} from '../../generated/graphql'
 
 type ContactType = {
   id: number
@@ -14,6 +18,9 @@ const AddContact = () => {
   const [isSearched, setIsSearched] = useState<boolean>(false)
 
   const { loading, data, refetch } = useGetContactsQuery({})
+  const [createConversation, createInfos] = useCreateConversationMutation({
+    refetchQueries: [{ query: GetConversationsDocument }],
+  })
 
   useEffect(() => {
     if (data?.users && !loading && research !== '') {
@@ -36,6 +43,18 @@ const AddContact = () => {
     refetch({ filter: { username: research } })
   }
 
+  const handleCreateConversation = (id: number) => {
+    createConversation({
+      variables: { input: { otherUserIds: [id] } },
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
   return (
     <div className={styles.add_contact}>
       <form onSubmit={(e) => handleSubmit(e)}>
@@ -56,7 +75,9 @@ const AddContact = () => {
                 <img src={contact.avatar} alt={contact.username} />
                 <p>{contact.username}</p>
               </div>
-              <button>Add</button>
+              <button onClick={() => handleCreateConversation(contact?.id)}>
+                Add
+              </button>
             </li>
           ))}
         </ul>

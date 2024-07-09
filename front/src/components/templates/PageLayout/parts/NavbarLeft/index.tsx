@@ -19,7 +19,12 @@ const NavbarLeft = () => {
   const { loading, data } = useGetConversationsQuery({})
 
   useEffect(() => {
-    setConversations(data?.getConversations)
+    if (data && !loading) {
+      const sortedConversations = data.getConversations.slice().sort((a, b) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      })
+      setConversations(sortedConversations)
+    }
   }, [data, loading])
 
   const handleSearchContact = (e: React.ChangeEvent<HTMLInputElement>) => {
