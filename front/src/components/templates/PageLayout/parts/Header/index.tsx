@@ -6,6 +6,7 @@ import { useGetUserQuery } from '../../../../../generated/graphql'
 import { useEffect, useState } from 'react'
 import { useAppDispatch } from '../../../../../hooks/reduxHooks'
 import { logoutLoggedUser } from '../../../../../features/userConnected'
+import Button from '../../../../atoms/Button'
 
 const Header = () => {
   const [user, setUser] = useState<string>('')
@@ -45,7 +46,7 @@ const Menu = () => {
 
   return (
     <div className={styles.menu}>
-      <button onClick={handleLogout}>Disconnect</button>
+      <Button onClick={handleLogout}>Disconnect</Button>
     </div>
   )
 }
