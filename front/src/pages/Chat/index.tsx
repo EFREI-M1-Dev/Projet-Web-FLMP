@@ -39,14 +39,13 @@ const Chat = () => {
   const [userReceiverStatus, setUserReceiverStatus] = useState<boolean>(false)
 
   const userId = useAppSelector((state: any) => state.user.id)
-  const username = useAppSelector((state: any) => state.user.username)
 
   const [messages, setMessages] = useState<MessageProps[]>([])
 
   const { loading, data, refetch } = useGetMessagesQuery({
     variables: { id: parseInt(idValue) },
   })
-  const [createMessage, createInfos] = useCreateMessageMutation({
+  const [createMessage] = useCreateMessageMutation({
     refetchQueries: [{ query: GetMessagesDocument }],
   })
 
