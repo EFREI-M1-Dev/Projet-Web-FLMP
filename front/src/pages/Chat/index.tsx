@@ -96,7 +96,7 @@ const Chat = () => {
       .then(() => {
         setInputMessage('')
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.log(err)
       })
   }
