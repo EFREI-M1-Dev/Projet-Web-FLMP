@@ -59,7 +59,7 @@ const Chat = () => {
 
     socket.on('userJoined', (room) => {
       setUserReceiverStatus(true)
-      console.log(`Joined room: ${room}`)
+      console.log(room)
     })
 
     socket.on('message', (messagePayload) => {
@@ -100,7 +100,8 @@ const Chat = () => {
     setInputMessage(value)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (inputMessage === '') return
     createMessage({
       variables: {
@@ -156,7 +157,10 @@ const Chat = () => {
               <Icon name="arrowBottom" />
             </span>
           </label>
-          <div className={styles.chat__footer__input}>
+          <form
+            onSubmit={(e) => handleSubmit(e)}
+            className={styles.chat__footer__input}
+          >
             <div>
               <input
                 value={inputMessage}
@@ -169,10 +173,10 @@ const Chat = () => {
                 <Icon name="emote" />
               </div>
             </div>
-            <button onClick={handleSubmit}>
+            <button type="submit">
               <Icon name="send" />
             </button>
-          </div>
+          </form>
           <label htmlFor="text" className={styles.chat__footer__icons}>
             <Icon name="camera" />
             <Icon name="video" color="#0B9CD5" />
