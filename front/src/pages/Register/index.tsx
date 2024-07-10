@@ -1,13 +1,11 @@
 import Auth, { UserInfoProps } from '../../components/templates/Auth';
 import { FormEvent, useState } from 'react'
 import { useRegisterMutation } from '../../generated/graphql';
-import { useAppDispatch } from '../../hooks/reduxHooks';
 import { useNavigate } from 'react-router';
 
 const Register = () => {
 	const [userInfo, setUserInfo] = useState<UserInfoProps>({name: '', password: ''});
 	const [register] = useRegisterMutation()
-	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
 	const handleChangeUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,12 +31,9 @@ const Register = () => {
 			  })
 			  if (data?.signup.username) {
 				navigate('/login')
-			  } else {
-				// setMsgError('An error occured, please try again later')
 			  }
 			} catch (e) {
 			  console.error(e)
-			//   setMsgError('An error occured')
 			}
 		}
 

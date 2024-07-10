@@ -5,7 +5,6 @@ import { useLoginMutation } from '../../generated/graphql'
 import { useAppDispatch } from '../../hooks/reduxHooks'
 import { setLoggedUser } from '../../features/userConnected'
 import { ROUTES } from '../../config/constants'
-import styles from './styles.module.scss'
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState<UserInfoProps>({
