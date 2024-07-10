@@ -1,18 +1,29 @@
+import { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
+import { Link } from 'react-router-dom'
 
 /* components */
 import Header from '../Header'
 import InputSearch from '../../../../molecules/InputSearch'
-import { useEffect, useState } from 'react'
 import MenuSelection from '../MenuSelection'
 import Avatar from '../../../../atoms/Avatar'
-import { useGetConversationsQuery } from '../../../../../generated/graphql'
+
+/* graphql */
+import {
+  Conversation,
+  User,
+  useGetConversationsQuery,
+} from '../../../../../generated/graphql'
+
+/* hooks */
+import useCleanTypename from '../../../../../hooks/useCleanTypeName'
+
+/* store */
 import { useAppSelector } from '../../../../../hooks/reduxHooks'
-import { Link } from 'react-router-dom'
 
 const NavbarLeft = () => {
   const [searchContact, setSearchContact] = useState<string>('')
-  const [conversations, setConversations] = useState<any>([])
+  const [conversations, setConversations] = useState<Conversation[]>([])
 
   const idUser = useAppSelector((state) => state.user.id)
 
@@ -20,7 +31,11 @@ const NavbarLeft = () => {
 
   useEffect(() => {
     if (data && !loading) {
-      const sortedConversations = data.getConversations.slice().sort((a, b) => {
+      const cleanedData = useCleanTypename(
+        data.getConversations
+      ) as Conversation[]
+      console.log('cleanedData:', cleanedData)
+      const sortedConversations = cleanedData.slice().sort((a, b) => {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       })
       setConversations(sortedConversations)
@@ -44,7 +59,7 @@ const NavbarLeft = () => {
       <div className={styles.contact_list}>
         <span className={styles.date}>Today</span>
         <ul className={styles.list}>
-          {conversations?.map((conversation: any) => {
+          {conversations?.map((conversation: Conversation) => {
             return (
               <Link to={`chat/${conversation?.id}`}>
                 <li key={conversation.id}>
@@ -52,8 +67,8 @@ const NavbarLeft = () => {
                   <div className={styles.infos}>
                     <span>
                       {conversation.users
-                        .filter((user: any) => user.id !== idUser)
-                        .map((user: any) => {
+                        .filter((user: User) => user.id !== idUser)
+                        .map((user: User) => {
                           return user.username
                         })}
                     </span>

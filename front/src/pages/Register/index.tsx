@@ -1,60 +1,68 @@
-import Auth, { UserInfoProps } from '../../components/templates/Auth';
 import { FormEvent, useState } from 'react'
-import { useRegisterMutation } from '../../generated/graphql';
-import { useAppDispatch } from '../../hooks/reduxHooks';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router'
+
+/* components */
+import Auth from '../../components/templates/Auth'
+import { UserInfoProps } from '../../components/templates/Auth'
+
+/* graphql */
+import { useRegisterMutation } from '../../generated/graphql'
 
 const Register = () => {
-	const [userInfo, setUserInfo] = useState<UserInfoProps>({name: '', password: ''});
-	const [register] = useRegisterMutation()
-	const dispatch = useAppDispatch()
-	const navigate = useNavigate()
+  const navigate = useNavigate()
 
-	const handleChangeUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target
-		setUserInfo({
-		  ...userInfo,
-		  [name]: value,
-		})
-	};
+  const [userInfo, setUserInfo] = useState<UserInfoProps>({
+    name: '',
+    password: '',
+  })
 
-	const handleSubmit = async (event: FormEvent) => {
-		event.preventDefault()
-		const username = userInfo.name
-		const password = userInfo.password
+  const [register] = useRegisterMutation()
 
-		try {
-			if (!username || !password) {
-				return
-			}
+  const handleChangeUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setUserInfo({
+      ...userInfo,
+      [name]: value,
+    })
+  }
 
-			const { data } = await register({
-				variables: { input: { username, password } },
-			  })
-			  if (data?.signup.username) {
-				navigate('/login')
-			  } else {
-				// setMsgError('An error occured, please try again later')
-			  }
-			} catch (e) {
-			  console.error(e)
-			//   setMsgError('An error occured')
-			}
-		}
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault()
+    const username = userInfo.name
+    const password = userInfo.password
 
-	return (
-		<form onSubmit={handleSubmit}>
-			<Auth 
-				title='Welcome to Skype'
-				info='Create account'
-				buttonText='Register me'
-				redirectionLink='/login'
-				redirectionText='Sign in'
-				data={userInfo}
-				onChange={handleChangeUserInfo}
-			/>
-		</form>
-	);
-};
+    try {
+      if (!username || !password) {
+        return
+      }
 
-export default Register;
+      const { data } = await register({
+        variables: { input: { username, password } },
+      })
+      if (data?.signup.username) {
+        navigate('/login')
+      } else {
+        // setMsgError('An error occured, please try again later')
+      }
+    } catch (e) {
+      console.error(e)
+      //   setMsgError('An error occured')
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <Auth
+        title="Welcome to Skype"
+        info="Create account"
+        buttonText="Register me"
+        redirectionLink="/login"
+        redirectionText="Sign in"
+        data={userInfo}
+        onChange={handleChangeUserInfo}
+      />
+    </form>
+  )
+}
+
+export default Register

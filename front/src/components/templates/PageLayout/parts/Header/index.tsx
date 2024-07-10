@@ -1,11 +1,19 @@
-import Avatar from '../../../../atoms/Avatar'
+import { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 
+/* icons */
 import cloudTop from '../../../../../assets/img/cloud-top-bar.svg'
+
+/* components */
+import Avatar from '../../../../atoms/Avatar'
+
+/* graphql */
 import { useGetUserQuery } from '../../../../../generated/graphql'
-import { useEffect, useState } from 'react'
+
+/* store */
 import { useAppDispatch } from '../../../../../hooks/reduxHooks'
 import { logoutLoggedUser } from '../../../../../features/userConnected'
+import Button from '../../../../atoms/Button'
 
 const Header = () => {
   const [user, setUser] = useState<string>('')
@@ -45,7 +53,7 @@ const Menu = () => {
 
   return (
     <div className={styles.menu}>
-      <button onClick={handleLogout}>Disconnect</button>
+      <Button onClick={handleLogout}>Disconnect</Button>
     </div>
   )
 }

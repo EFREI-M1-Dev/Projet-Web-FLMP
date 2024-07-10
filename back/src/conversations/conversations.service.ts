@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateConversationInput } from './dto/create-conversation.input';
-import { UpdateConversationInput } from './dto/update-conversation.input';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -45,21 +44,5 @@ export class ConversationsService {
         messages: true,
       },
     });
-  }
-
-  findAll() {
-    return `This action returns all conversations`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} conversation`;
-  }
-
-  update(id: number, updateConversationInput: UpdateConversationInput) {
-    return `This action updates a #${id} conversation`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} conversation`;
   }
 }

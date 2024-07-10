@@ -1,5 +1,5 @@
-import styles from './styles.module.scss'
 import React from 'react'
+import styles from './styles.module.scss'
 
 type ButtonProps = {
   children?: string | React.ReactElement[]

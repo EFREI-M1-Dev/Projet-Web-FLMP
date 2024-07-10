@@ -1,8 +1,12 @@
+import styles from './styles.module.scss'
 import { Link } from 'react-router-dom'
+
+/* logo */
+import skypeLogo from '../../../assets/img/skype-logo.svg'
+
+/* components */
 import Button from '../../atoms/Button'
 import InputText from '../../molecules/InputText'
-import styles from './styles.module.scss'
-import skypeLogo from '../../../assets/img/skype-logo.svg'
 
 export type UserInfoProps = {
   name: string
