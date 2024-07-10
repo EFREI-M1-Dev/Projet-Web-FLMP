@@ -74,7 +74,7 @@
 					"mode": "graphql",
 					"graphql": {
 						"query": "mutation Login($input: LoginUserInput!) {\r\n  login(loginUserInput: $input) {\r\n    user {\r\n      username\r\n      avatar\r\n    }\r\n    token\r\n  }\r\n}\r\n\r\n",
-						"variables": "{\r\n  \"input\": {\r\n    \"username\": \"alice\",\r\n    \"password\": \"password\"\r\n  }\r\n}"
+						"variables": "{\r\n  \"input\": {\r\n    \"username\": \"admin\",\r\n    \"password\": \"root\"\r\n  }\r\n}"
 					}
 				},
 				"url": {
@@ -123,7 +123,7 @@
 					"mode": "graphql",
 					"graphql": {
 						"query": "mutation Login($input: LoginUserInput!) {\r\n  login(loginUserInput: $input) {\r\n    user {\r\n      username\r\n      avatar\r\n    }\r\n    token\r\n  }\r\n}\r\n\r\n",
-						"variables": "{\r\n  \"input\": {\r\n    \"username\": \"admin\",\r\n    \"password\": \"root\"\r\n  }\r\n}"
+						"variables": "{\r\n  \"input\": {\r\n    \"username\": \"alice\",\r\n    \"password\": \"password\"\r\n  }\r\n}"
 					}
 				},
 				"url": {
