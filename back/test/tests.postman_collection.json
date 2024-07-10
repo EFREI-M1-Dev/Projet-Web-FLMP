@@ -99,6 +99,7 @@
 							"\r",
 							"pm.test(\"La réponse renvoie le token\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.be.an('object');\r",
 							"    pm.expect(jsonData.data).to.have.property('login');\r",
 							"    pm.expect(jsonData.data.login).to.have.property('token');\r",
 							"});\r",
@@ -106,6 +107,8 @@
 							"var jsonData = pm.response.json();\r",
 							"if (jsonData.data && jsonData.data.login) {\r",
 							"    pm.collectionVariables.set(\"authToken\", jsonData.data.login.token);\r",
+							"} else {\r",
+							"    console.error('Login failed, no token received:', pm.response.json());\r",
 							"}"
 						],
 						"type": "text/javascript",
@@ -140,16 +143,22 @@
 					"script": {
 						"exec": [
 							"var jsonData = pm.response.json();\r",
-							"pm.environment.set(\"conversationId\", jsonData.data.createConversation.id);\r",
-							"\r",
 							"pm.test(\"Statut de la réponse : 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"La réponse contient une nouvelle conversation\", function () {\r",
+							"    pm.expect(jsonData.data).to.be.an('object');\r",
 							"    pm.expect(jsonData.data).to.have.property('createConversation');\r",
 							"    pm.expect(jsonData.data.createConversation).to.have.property('id');\r",
-							"});"
+							"});\r",
+							"\r",
+							"if (jsonData.data && jsonData.data.createConversation) {\r",
+							"    pm.environment.set(\"conversationId\", jsonData.data.createConversation.id);\r",
+							"} else {\r",
+							"    console.error('Create conversation failed:', pm.response.json());\r",
+							"}\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -242,6 +251,7 @@
 							"pm.test(\"Renvoie du message ajouté à la queue\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData.data).to.have.property('createMessage');\r",
+							"    pm.expect(jsonData.data.createMessage).to.be.a('string');\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -291,6 +301,7 @@
 							"\r",
 							"pm.test(\"La réponse contient au moins une conversation\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.be.an('object');\r",
 							"    pm.expect(jsonData.data).to.have.property('getConversations');\r",
 							"    pm.expect(jsonData.data.getConversations).to.be.an('array');\r",
 							"});"
@@ -342,6 +353,7 @@
 							"\r",
 							"pm.test(\"La réponse contient au moins un message\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.be.an('object');\r",
 							"    pm.expect(jsonData.data).to.have.property('getMessages');\r",
 							"    pm.expect(jsonData.data.getMessages).to.be.an('array');\r",
 							"});"
@@ -393,9 +405,14 @@
 							"\r",
 							"pm.test(\"La réponse l'ID du User connecté\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.be.an('object');\r",
 							"    pm.expect(jsonData.data).to.have.property('getUser');\r",
 							"    pm.expect(jsonData.data.getUser).to.have.property('id');\r",
-							"});"
+							"});\r",
+							"\r",
+							"if (pm.response.code !== 200) {\r",
+							"    console.error('GetUser failed:', pm.response.json());\r",
+							"}"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -430,6 +447,28 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"variable": [
