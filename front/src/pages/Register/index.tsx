@@ -1,7 +1,8 @@
 import { FormEvent, useState } from 'react'
-import Auth, { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 
 /* components */
+import Auth from '../../components/templates/Auth'
 import { UserInfoProps } from '../../components/templates/Auth'
 
 /* graphql */
