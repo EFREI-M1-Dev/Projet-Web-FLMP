@@ -14,7 +14,7 @@ services:
       JWT_SECRET: example-secret-key
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      CLIENT_URL: http://localhost:5173
+      CLIENT_URL: http://client:5173
     restart: always
 
   client:
@@ -24,7 +24,7 @@ services:
     depends_on:
       - server
     ports:
-      - '5173:5173'
+      - '80:80'
 
   redis:
     image: redis:7.2
