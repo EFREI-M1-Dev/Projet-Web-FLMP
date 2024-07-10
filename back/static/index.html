@@ -12,6 +12,14 @@
         console.log(`${data.username}: ${data.message}`);
       });
 
+      socket.on('userJoined', function(data) {
+        console.log(`User has joined the room.`);
+      });
+
+      socket.on('userLeft', function(data) {
+        console.log(`User has left the room.`);
+      });
+
       function joinRoom(room) {
         socket.emit('joinRoom', room);
         socket.on('joinedRoom', function(joinedRoom) {
