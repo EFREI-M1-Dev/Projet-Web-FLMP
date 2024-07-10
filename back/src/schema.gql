@@ -41,11 +41,7 @@ type Query {
   users(filter: FilterUserInput): [User!]!
   user(username: String!): User!
   getMessages(conversationId: Int!): [Message!]!
-  messages: [Message!]!
-  message(id: Int!): Message!
   getConversations: [Conversation!]!
-  conversations: [Conversation!]!
-  conversation(id: Int!): Conversation!
 }
 
 input FilterUserInput {
@@ -56,11 +52,7 @@ type Mutation {
   login(loginUserInput: LoginUserInput!): LoginResponse!
   signup(loginUserInput: LoginUserInput!): User!
   createMessage(createMessageInput: SendMessageInput!): String!
-  updateMessage(updateMessageInput: UpdateMessageInput!): Message!
-  removeMessage(id: Int!): Message!
   createConversation(createConversationInput: CreateConversationInput!): Conversation!
-  updateConversation(updateConversationInput: UpdateConversationInput!): Conversation!
-  removeConversation(id: Int!): Conversation!
 }
 
 input LoginUserInput {
@@ -73,17 +65,6 @@ input SendMessageInput {
   conversationId: Int!
 }
 
-input UpdateMessageInput {
-  content: String
-  conversationId: Int
-  id: Int!
-}
-
 input CreateConversationInput {
   otherUserIds: [Int!]!
-}
-
-input UpdateConversationInput {
-  otherUserIds: [Int!]
-  id: Int!
 }

@@ -14,7 +14,7 @@ import { ChatsGateway } from 'src/chats/chats.gateway';
     PrismaService,
     MessagesProducer,
     MessagesConsumer,
-    ChatsGateway
+    ChatsGateway,
   ],
   imports: [
     BullModule.registerQueue({

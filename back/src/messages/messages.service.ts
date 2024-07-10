@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMessageInput } from './dto/create-message.input';
-import { UpdateMessageInput } from './dto/update-message.input';
 import { PrismaService } from '../prisma/prisma.service';
 import { ChatsGateway } from '../chats/chats.gateway';
 
@@ -52,8 +51,6 @@ export class MessagesService {
       },
     });
 
-    console.log('je suis passé');
-
     this.chatsGateway.server
       .to(conversationId.toString())
       .emit('message', message);
@@ -71,21 +68,5 @@ export class MessagesService {
         conversation: true,
       },
     });
-  }
-
-  findAll() {
-    return `This action returns all messages`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} message`;
-  }
-
-  update(id: number, updateMessageInput: UpdateMessageInput) {
-    return `This action updates a #${id} message`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} message`;
   }
 }
