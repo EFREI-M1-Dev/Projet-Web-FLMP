@@ -2,16 +2,38 @@
   <head>
     <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
     <script>
-      const socket = io('http://localhost:3000');
-      
-      socket.on('message', function(data) {
-        console.log('message', data);
+      const socket = io('http://localhost:3000'); 
+
+      socket.on('connect', function() {
+        console.log('Connected to server');
       });
 
-      console.log('hey');
+      socket.on('message', function(data) {
+        console.log(`${data.username}: ${data.message}`);
+      });
 
+      function joinRoom(room) {
+        socket.emit('joinRoom', room);
+        socket.on('joinedRoom', function(joinedRoom) {
+          console.log(`Joined room: ${joinedRoom}`);
+        });
+      }
+
+      function leaveRoom(room) {
+        socket.emit('leaveRoom', room);
+        socket.on('leftRoom', function(leftRoom) {
+          console.log(`Left room: ${leftRoom}`);
+        });
+      }
+
+      function sendMessage(room, message, username) {
+        socket.emit('message', { room, message, username });
+      }
+
+      const username = 'User1'; 
+      joinRoom('conversation1'); 
+      sendMessage('conversation1', 'Hello everyone in conversation1!', username); 
     </script>
   </head>
-
   <body></body>
 </html>
