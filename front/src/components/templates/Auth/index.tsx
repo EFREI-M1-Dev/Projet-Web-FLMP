@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Button from '../../atoms/Button';
 import InputText from '../../molecules/InputText';
 import styles from './styles.module.scss'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import skypeLogo from '../../../assets/img/skype-logo.svg'
 
 
@@ -17,20 +17,12 @@ type AuthPropType = {
 	info: string,
 	buttonText: string,
 	redirectionLink: string,
-	redirectionText: string
+	redirectionText: string,
+	data: UserInfoProps,
+	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 };
 
-const Auth = ({title, info, buttonText, redirectionLink, redirectionText}: AuthPropType) => {
-	const [userInfo, setUserInfo] = useState<UserInfoProps>({name: '', password: ''});
-
-	const handleChangeUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target
-		setUserInfo({
-		  ...userInfo,
-		  [name]: value,
-		})
-	};
-
+const Auth = ({title, info, buttonText, redirectionLink, redirectionText, data, onChange}: AuthPropType) => {
 
 	return (
 		<div className={styles.container}>
@@ -38,29 +30,27 @@ const Auth = ({title, info, buttonText, redirectionLink, redirectionText}: AuthP
 				<h1 className={styles.header__title}>{title}</h1>
 			</div>
 			<div className={styles.login}>
-				<form>
-					<img src={skypeLogo} alt='Skype Logo'/>
-					<h1>{info}</h1>					
-					<InputText
-						label='Skype Name'
-						inputType='text'
-						placeholder=''
-						name='name'
-						value={userInfo.name}
-						onChange={handleChangeUserInfo}/>
-					
+				<img src={skypeLogo} alt='Skype Logo'/>
+				<h1>{info}</h1>					
+				<InputText
+					label='Skype Name'
+					inputType='text'
+					placeholder=''
+					name='name'
+					value={data.name}
+					onChange={onChange}/>
+				
 
-					<InputText
-						label='Password'
-						inputType='password'
-						placeholder=''
-						name='password'
-						value={userInfo.password}
-						onChange={handleChangeUserInfo}/>
+				<InputText
+					label='Password'
+					inputType='password'
+					placeholder=''
+					name='password'
+					value={data.password}
+					onChange={onChange}/>
 
-					<Button text={buttonText}/>
-					<Link className={styles.link} to={redirectionLink}>{redirectionText}</Link>
-				</form>
+				<Button text={buttonText}/>
+				<Link className={styles.link} to={redirectionLink}>{redirectionText}</Link>
 			</div>
 		</div>
 	);

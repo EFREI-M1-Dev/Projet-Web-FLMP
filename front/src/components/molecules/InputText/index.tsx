@@ -12,7 +12,7 @@ type InputTextProps = {
 
 const InputText = ({label, inputType, placeholder, name, value, onChange }: InputTextProps) => {
     return (
-        <div className={styles.input_text}>
+        <div className={styles.inputText}>
             <label className={styles.label}>{label}</label>
             <input
                 className={styles.input}

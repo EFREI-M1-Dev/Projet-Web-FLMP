@@ -8,42 +8,11 @@ import Homepage from '../pages/Homepage'
 import Chat from '../pages/Chat'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
-import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks'
+import { useAppSelector } from '../hooks/reduxHooks'
 import NotFound from '../pages/NotFound'
-import { setLoggedUser } from '../features/userConnected'
 import AddContact from '../pages/AddContact'
 import Pagelayout from '../components/templates/PageLayout'
 
-/* export const router = createBrowserRouter([
-  {
-    path: ROUTES.HOME,
-    element: <Homepage />,
-  },
-  {
-    path: ROUTES.LOGIN,
-    element: <Login />,
-  },
-  {
-    path: ROUTES.REGISTER,
-    element: <Register />,
-  },
-  {
-    path: ROUTES.CHAT,
-    element: <Chat />,
-  },
-  {
-    path: ROUTES.ADD_CONTACT,
-    element: <AddContact />,
-  },
-  {
-    path: ROUTES.NOT_FOUND,
-    element: <NotFound />,
-  },
-  {
-    path: '*',
-    element: <Navigate to="/404" replace={true} />,
-  },
-]) */
 
 export const router = createBrowserRouter([
   {
@@ -90,9 +59,9 @@ export const authRouter = createBrowserRouter([
 ])
 
 const ActualRouter = () => {
-  const dispatch = useAppDispatch()
   const token = useAppSelector((state) => state.user)
 
+<<<<<<< HEAD
   dispatch(
     setLoggedUser({
       token:
@@ -105,10 +74,11 @@ const ActualRouter = () => {
     })
   )
 
+=======
+>>>>>>> f5f808f (feat(login) : WIP but adding the capacity to create and log in your account)
   return (
     <RouterProvider
       router={token.token ? router : authRouter}
-      /* fallbackElement={<BigSpinner />} */
     />
   )
 }
