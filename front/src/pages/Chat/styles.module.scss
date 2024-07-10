@@ -10,14 +10,19 @@ $rightConv: #e5f6fd;
   grid-template-areas: 'header' 'content' 'footer';
   grid-template-rows: 145px 8fr 150px;
   margin: 0 4rem;
+  padding-bottom: 200px;
 
   &__header {
+    position: fixed;
+    top: 0;
+    width: calc(100% - 428px);
+    background-color: #fff;
     grid-area: header;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 0;
-
+    padding: 1.1rem 0;
+    z-index: 50;
     border-bottom: 1px solid $borderColor;
 
     &__infos {
@@ -69,6 +74,7 @@ $rightConv: #e5f6fd;
     flex-direction: column;
     gap: 2rem;
     margin-top: auto;
+    padding-bottom: 160px;
   }
 
   &__message__day {
@@ -137,6 +143,10 @@ $rightConv: #e5f6fd;
     grid-template-areas: '. content .';
     grid-template-columns: 75px 1fr 100px;
     grid-gap: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 428px);
+    background-color: #fff;
 
     &__content {
       grid-area: content;

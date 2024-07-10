@@ -213,7 +213,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', token: string, user: { __typename?: 'User', username: string, avatar: string } } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', token: string, user: { __typename?: 'User', id: number, username: string, avatar: string } } };
 
 export type RegisterMutationVariables = Exact<{
   input: LoginUserInput;
@@ -466,6 +466,7 @@ export const LoginDocument = gql`
     mutation Login($input: LoginUserInput!) {
   login(loginUserInput: $input) {
     user {
+      id
       username
       avatar
     }

@@ -36,8 +36,10 @@ const Chat = () => {
   const idValue = id ?? ''
 
   const [inputMessage, setInputMessage] = useState<string>('')
+  const [userReceiverStatus, setUserReceiverStatus] = useState<boolean>(false)
 
   const userId = useAppSelector((state: any) => state.user.id)
+  const username = useAppSelector((state: any) => state.user.username)
 
   const [messages, setMessages] = useState<MessageProps[]>([])
 
@@ -49,12 +51,29 @@ const Chat = () => {
   })
 
   useEffect(() => {
-    socket.on('joinRoom', () => console.log('connected'))
+    window.scrollTo(0, document.body.scrollHeight)
+  }, [idValue, messages])
+
+  useEffect(() => {
+    socket.connect()
+    socket.emit('joinRoom', idValue)
+
+    socket.on('userJoined', (room) => {
+      setUserReceiverStatus(true)
+      console.log(`Joined room: ${room}`)
+    })
+
+    socket.on('message', (messagePayload) => {
+      console.log('messagePayload', messagePayload)
+      refetch()
+    })
 
     return () => {
-      socket.on('joinRoom', () => console.log('connected'))
+      socket.emit('leaveRoom', idValue)
+      setUserReceiverStatus(false)
+      socket.disconnect()
     }
-  }, [])
+  }, [idValue])
 
   useEffect(() => {
     refetch()
@@ -84,7 +103,11 @@ const Chat = () => {
 
   const handleSubmit = () => {
     if (inputMessage === '') return
-    socket.emit('message', { message: inputMessage })
+    /*  socket.emit('message', {
+      room: idValue,
+      message: inputMessage,
+      username: username,
+    }) */
     createMessage({
       variables: {
         input: {
@@ -110,7 +133,7 @@ const Chat = () => {
           </div>
           <div>
             <h1>{getUsernames()?.map((username) => `${username}`)}</h1>
-            <p>Online</p>
+            <p>{userReceiverStatus ? 'Online' : 'Offline'}</p>
           </div>
         </div>
         <div className={styles.chat__header__actions}>

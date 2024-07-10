@@ -6,7 +6,10 @@ import { ChatsGateway } from '../chats/chats.gateway';
 
 @Injectable()
 export class MessagesService {
-  constructor(private prisma: PrismaService, private chatsGateway: ChatsGateway) {}
+  constructor(
+    private prisma: PrismaService,
+    private chatsGateway: ChatsGateway,
+  ) {}
 
   async create(createMessageInput: CreateMessageInput) {
     const { content, userId, conversationId } = createMessageInput;
@@ -48,8 +51,12 @@ export class MessagesService {
         conversation: true,
       },
     });
-    
-    this.chatsGateway.server.to(conversationId.toString()).emit('message', message);
+
+    console.log('je suis passé');
+
+    this.chatsGateway.server
+      .to(conversationId.toString())
+      .emit('message', message);
 
     return message;
   }

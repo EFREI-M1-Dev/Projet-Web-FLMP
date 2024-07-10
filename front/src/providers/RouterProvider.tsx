@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <Navigate to="/404" replace={true} />,
+    element: <Navigate to={ROUTES.NOT_FOUND} replace={true} />,
   },
 ])
 
@@ -53,7 +53,7 @@ export const authRouter = createBrowserRouter([
   },
   {
     path: '*',
-    element: <Navigate to="/login" replace={true} />,
+    element: <Navigate to={ROUTES.LOGIN} replace={true} />,
   },
 ])
 
