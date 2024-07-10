@@ -217,9 +217,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}",
+					"raw": "{{URL}}",
 					"host": [
-						"{{baseURL}}"
+						"{{URL}}"
 					]
 				}
 			},
@@ -267,9 +267,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}",
+					"raw": "{{URL}}",
 					"host": [
-						"{{baseURL}}"
+						"{{URL}}"
 					]
 				}
 			},
@@ -317,9 +317,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}",
+					"raw": "{{URL}}",
 					"host": [
-						"{{baseURL}}"
+						"{{URL}}"
 					]
 				}
 			},
@@ -367,9 +367,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}",
+					"raw": "{{URL}}",
 					"host": [
-						"{{baseURL}}"
+						"{{URL}}"
 					]
 				}
 			},
@@ -417,9 +417,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}",
+					"raw": "{{URL}}",
 					"host": [
-						"{{baseURL}}"
+						"{{URL}}"
 					]
 				}
 			},
@@ -430,14 +430,6 @@
 		{
 			"key": "authToken",
 			"value": "{{authToken}}"
-		},
-		{
-			"key": "baseUrl",
-			"value": "baseUrl"
-		},
-		{
-			"key": "baseURL",
-			"value": "baseURL"
 		},
 		{
 			"key": "URL",
