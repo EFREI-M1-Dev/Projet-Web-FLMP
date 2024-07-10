@@ -34,6 +34,10 @@ export const router = createBrowserRouter([
         path: ROUTES.NOT_FOUND,
         element: <NotFound />,
       },
+      {
+        path: ROUTES.LOGIN,
+        element: <Homepage />,
+      },
     ],
   },
   {
