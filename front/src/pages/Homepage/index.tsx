@@ -1,10 +1,15 @@
+import { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
+
+/* logo */
+import skypeAvatar from '../../assets/img/skype-avatar.png'
+
+/* components */
 import { IconHomeNews } from '../../components/atoms/Icons/IconHomeSvg.tsx'
 import { IconMeetHome } from '../../components/atoms/Icons/IconMeetHome.tsx'
 
-import skypeAvatar from '../../assets/img/skype-avatar.png'
+/* graphql */
 import { useGetUserQuery } from '../../generated/graphql.tsx'
-import { useEffect, useState } from 'react'
 
 const Homepage = () => {
   const [user, setUser] = useState<string>('')

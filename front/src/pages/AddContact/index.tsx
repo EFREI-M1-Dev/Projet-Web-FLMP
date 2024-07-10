@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.scss'
+import moment from 'moment'
+
+/* graphql */
 import {
   GetConversationsDocument,
   useCreateConversationMutation,
   useGetContactsQuery,
 } from '../../generated/graphql'
+
+/* components */
 import Icon from '../../components/atoms/Icon'
 import Button from '../../components/atoms/Button'
-import moment from 'moment'
 
 type ContactType = {
   id: number
@@ -20,7 +24,8 @@ const AddContact = () => {
   const [research, setResearch] = useState<string>('')
   const [researchResults, setResearchResults] = useState<ContactType[]>([])
   const [isSearched, setIsSearched] = useState<boolean>(false)
-  const input = document.getElementById('input')
+
+  const refField = useRef<HTMLInputElement | null>(null)
 
   const { loading, data, refetch } = useGetContactsQuery({})
   const [createConversation] = useCreateConversationMutation({
@@ -42,7 +47,7 @@ const AddContact = () => {
     }
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSearched(true)
     refetch({ filter: { username: research } })
@@ -51,7 +56,7 @@ const AddContact = () => {
   const removeInput = () => {
     setResearch('')
     setIsSearched(false)
-    input?.focus()
+    refField?.current?.focus()
   }
 
   const handleCreateConversation = (id: number) => {
@@ -75,7 +80,7 @@ const AddContact = () => {
             type="text"
             value={research}
             onChange={handleResearch}
-            id="input"
+            ref={refField}
           />
           {research.length > 0 ? (
             <button onClick={removeInput} type="reset">

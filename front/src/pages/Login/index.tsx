@@ -1,20 +1,49 @@
-import Auth, { UserInfoProps } from '../../components/templates/Auth'
-import { useNavigate } from 'react-router-dom'
 import { FormEvent, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+/* components */
+import Auth, { UserInfoProps } from '../../components/templates/Auth'
+
+/* graphql */
 import { useLoginMutation } from '../../generated/graphql'
+
+/* hooks */
 import { useAppDispatch } from '../../hooks/reduxHooks'
+
+/* store */
 import { setLoggedUser } from '../../features/userConnected'
+
+/* config */
 import { ROUTES } from '../../config/constants'
 
 const Login = () => {
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   const [userInfo, setUserInfo] = useState<UserInfoProps>({
     name: '',
     password: '',
   })
   const [msgError, setMsgError] = useState<string>('')
+
   const [login, { data, loading, error }] = useLoginMutation()
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (loading) {
+      return
+    }
+    if (data) {
+      console.log('Login successful:', data)
+    }
+    if (error) {
+      console.error('Error:', error)
+      setMsgError('An error occured')
+
+      if (error.message === 'Unauthorized') {
+        setMsgError('Bad username or password !')
+      }
+    }
+  }, [data, loading, error])
 
   const handleChangeUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -48,23 +77,6 @@ const Login = () => {
       console.error(e)
     }
   }
-
-  useEffect(() => {
-    if (loading) {
-      return
-    }
-    if (data) {
-      console.log('Login successful:', data)
-    }
-    if (error) {
-      console.error('Error:', error)
-      setMsgError('An error occured')
-
-      if (error.message === 'Unauthorized') {
-        setMsgError('Bad username or password !')
-      }
-    }
-  }, [data, loading, error])
 
   return (
     <form onSubmit={handleSubmit}>

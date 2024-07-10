@@ -1,6 +1,8 @@
 import styles from './styles.module.scss'
-import Button from '../../components/atoms/Button'
 import { Link } from 'react-router-dom'
+
+/* components */
+import Button from '../../components/atoms/Button'
 
 const NotFound = () => {
   return (

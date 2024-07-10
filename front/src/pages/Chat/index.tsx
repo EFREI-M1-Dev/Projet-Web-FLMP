@@ -17,8 +17,9 @@ import {
 import Avatar from '../../components/atoms/Avatar'
 import Icon from '../../components/atoms/Icon'
 
-/* hooks */
+/* store */
 import { useAppSelector } from '../../hooks/reduxHooks'
+import { RootState } from '../../store'
 
 type MessageProps = {
   id: number
@@ -37,10 +38,9 @@ const Chat = () => {
 
   const [inputMessage, setInputMessage] = useState<string>('')
   const [userReceiverStatus, setUserReceiverStatus] = useState<boolean>(false)
-
-  const userId = useAppSelector((state: any) => state.user.id)
-
   const [messages, setMessages] = useState<MessageProps[]>([])
+
+  const userId = useAppSelector((state: RootState) => state.user.id)
 
   const { loading, data, refetch } = useGetMessagesQuery({
     variables: { id: parseInt(idValue) },
@@ -72,7 +72,7 @@ const Chat = () => {
       setUserReceiverStatus(false)
       socket.disconnect()
     }
-  }, [idValue])
+  }, [idValue, messages])
 
   useEffect(() => {
     refetch()
@@ -102,11 +102,6 @@ const Chat = () => {
 
   const handleSubmit = () => {
     if (inputMessage === '') return
-    /*  socket.emit('message', {
-      room: idValue,
-      message: inputMessage,
-      username: username,
-    }) */
     createMessage({
       variables: {
         input: {
@@ -118,7 +113,7 @@ const Chat = () => {
       .then(() => {
         setInputMessage('')
       })
-      .catch((err: any) => {
+      .catch((err: Error) => {
         console.log(err)
       })
   }
@@ -128,7 +123,7 @@ const Chat = () => {
       <header className={styles.chat__header}>
         <div className={styles.chat__header__infos}>
           <div>
-            <Avatar />
+            <Avatar status={userReceiverStatus ? 'online' : 'offline'} />
           </div>
           <div>
             <h1>{getUsernames()?.map((username) => `${username}`)}</h1>
@@ -145,7 +140,7 @@ const Chat = () => {
         </div>
       </header>
       {messages.length > 0 ? (
-        <ChatContent messages={messages} userId={userId} />
+        <ChatContent messages={messages} userId={userId ?? ''} />
       ) : (
         <p className={styles.chat__first__message}>
           Write the first message...
@@ -192,7 +187,7 @@ const Chat = () => {
 
 interface ChatContentProps {
   messages: MessageProps[]
-  userId: string
+  userId: string | null
 }
 
 const ChatContent = ({ messages, userId }: ChatContentProps) => {
@@ -201,7 +196,8 @@ const ChatContent = ({ messages, userId }: ChatContentProps) => {
   return (
     <section className={styles.chat__content}>
       {messages?.map((message: MessageProps) => {
-        const userConnectedIsAuthor = parseInt(userId) === message?.author?.id
+        const userConnectedIsAuthor =
+          parseInt(userId ?? '') === message?.author?.id
         const messageDate = moment(message?.createdAt)
         const isNewDay =
           !previousMessageDate ||

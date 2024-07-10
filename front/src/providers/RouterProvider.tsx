@@ -1,17 +1,21 @@
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 
+/* config */
 import { ROUTES } from '../config/constants'
 
 /* pages */
-
 import Homepage from '../pages/Homepage'
 import Chat from '../pages/Chat'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
-import { useAppSelector } from '../hooks/reduxHooks'
 import NotFound from '../pages/NotFound'
 import AddContact from '../pages/AddContact'
+
+/* components */
 import Pagelayout from '../components/templates/PageLayout'
+
+/* hooks */
+import { useAppSelector } from '../hooks/reduxHooks'
 
 export const router = createBrowserRouter([
   {

@@ -1,5 +1,7 @@
-import Icon from '../../atoms/Icon'
 import styles from './styles.module.scss'
+
+/* components */
+import Icon from '../../atoms/Icon'
 
 type InputSearchProps = {
   placeholder: string
