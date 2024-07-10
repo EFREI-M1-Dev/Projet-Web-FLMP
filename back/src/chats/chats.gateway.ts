@@ -18,21 +18,29 @@ export class ChatsGateway {
   @SubscribeMessage('joinRoom')
   handleJoinRoom(
     @ConnectedSocket() client: Socket,
-    @MessageBody() room: string,
+    @MessageBody() data: { room: string; username: string },
   ) {
-    client.join(room);
-    client.emit('joinedRoom', room);
-    console.log(`Client ${client.id} joined room ${room}`);
+    client.join(data.room);
+    client.emit('joinedRoom', data.room);
+    console.log(`Client ${client.id} joined room ${data.room}`);
+
+    client
+      .to(data.room)
+      .emit('userJoined', { room: data.room, username: data.username });
   }
 
   @SubscribeMessage('leaveRoom')
   handleLeaveRoom(
     @ConnectedSocket() client: Socket,
-    @MessageBody() room: string,
+    @MessageBody() data: { room: string; username: string },
   ) {
-    client.leave(room);
-    client.emit('leftRoom', room);
-    console.log(`Client ${client.id} left room ${room}`);
+    client.leave(data.room);
+    client.emit('leftRoom', data.room);
+    console.log(`Client ${client.id} left room ${data.room}`);
+
+    client
+      .to(data.room)
+      .emit('userLeft', { room: data.room, username: data.username });
   }
 
   @SubscribeMessage('message')
@@ -40,7 +48,11 @@ export class ChatsGateway {
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { room: string; message: string; username: string },
   ) {
-    const messagePayload = { message: data.message, username: data.username };
+    const messagePayload = {
+      room: data.room,
+      message: data.message,
+      username: data.username,
+    };
     this.server.to(data.room).emit('message', messagePayload);
   }
 }
