@@ -10,7 +10,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { MessagesModule } from './messages/messages.module';
 import { ConversationsModule } from './conversations/conversations.module';
 import { BullModule } from '@nestjs/bull';
-import { EventsModule } from './events/events.module';
+import { ChatsModule } from './chats/chats.module';
 
 @Module({
   imports: [
@@ -33,7 +33,7 @@ import { EventsModule } from './events/events.module';
     AuthModule,
     MessagesModule,
     ConversationsModule,
-    EventsModule,
+    ChatsModule,
   ],
   controllers: [],
   providers: [PrismaService],
