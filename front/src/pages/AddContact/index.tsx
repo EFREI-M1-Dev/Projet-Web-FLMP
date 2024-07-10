@@ -7,6 +7,7 @@ import {
 } from '../../generated/graphql'
 import Icon from "../../components/atoms/Icon";
 import Button from "../../components/atoms/Button";
+import moment from "moment";
 
 type ContactType = {
   id: number
@@ -99,10 +100,16 @@ const AddContact = () => {
                 <img src={contact.avatar} alt={contact.username} />
                 <p>{contact.username}</p>
                 <p>
-                  @{contact.createdAt}
+                  @{contact.username}
+                </p>
+                <p>
+                  Member since&nbsp;
+                  <span>
+                    {moment(contact.createdAt).format('DD/MM/YYYY')}
+                  </span>
                 </p>
               </div>
-              <Button onClick={() => handleCreateConversation(contact?.id)}  text={'Add'}/>
+              <Button onClick={() => handleCreateConversation(contact?.id)} text={'add'} />
             </li>
           ))}
         </ul>

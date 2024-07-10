@@ -1,10 +1,10 @@
-import Auth, { UserInfoProps } from '../../components/templates/Auth';
-import { useNavigate } from 'react-router-dom'
-import { FormEvent, useState } from 'react'
-import { useLoginMutation } from '../../generated/graphql'
-import { useAppDispatch } from '../../hooks/reduxHooks';
-import { setLoggedUser } from '../../features/userConnected';
-import { ROUTES } from '../../config/constants';
+import Auth, {UserInfoProps} from '../../components/templates/Auth';
+import {useNavigate} from 'react-router-dom'
+import {FormEvent, useState} from 'react'
+import {useLoginMutation} from '../../generated/graphql'
+import {useAppDispatch} from '../../hooks/reduxHooks';
+import {setLoggedUser} from '../../features/userConnected';
+import {ROUTES} from '../../config/constants';
 
 const Login = () => {
 	const [userInfo, setUserInfo] = useState<UserInfoProps>({name: '', password: ''});
@@ -29,7 +29,7 @@ const Login = () => {
 		  if (!username || !password) {
 			return
 		  }
-	
+
 		  const { data } = await login({
 			variables: { input: { username, password } },
 		  })
@@ -44,7 +44,7 @@ const Login = () => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<Auth 
+			<Auth
 				title='Welcome back!'
 				info='Sign in'
 				buttonText='Sign me in'
