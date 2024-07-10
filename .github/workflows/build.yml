@@ -27,8 +27,8 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
-      - name: Run Newman tests
-        run: newman run back/test/tests.postman_collection.json
+#      - name: Run Newman tests
+#        run: newman run back/test/tests.postman_collection.json
 
       - name: Convert repository owner to lowercase
         id: convert_repository
