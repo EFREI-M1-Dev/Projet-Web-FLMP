@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import styles from './styles.module.scss'
+import moment, { Moment } from 'moment'
+
+/* config */
+import { socket } from '../../config/socket'
 
 /* graphql */
-import { useGetMessagesQuery } from '../../generated/graphql'
+import {
+  GetMessagesDocument,
+  useCreateMessageMutation,
+  useGetMessagesQuery,
+} from '../../generated/graphql'
 
 /* components */
 import Avatar from '../../components/atoms/Avatar'
@@ -11,7 +19,6 @@ import Icon from '../../components/atoms/Icon'
 
 /* hooks */
 import { useAppSelector } from '../../hooks/reduxHooks'
-import moment, { Moment } from 'moment'
 
 type MessageProps = {
   id: number
@@ -28,23 +35,94 @@ const Chat = () => {
   const { id } = useParams<{ id: string }>()
   const idValue = id ?? ''
 
+  const [inputMessage, setInputMessage] = useState<string>('')
+  const [userReceiverStatus, setUserReceiverStatus] = useState<boolean>(false)
+
   const userId = useAppSelector((state: any) => state.user.id)
+  const username = useAppSelector((state: any) => state.user.username)
 
   const [messages, setMessages] = useState<MessageProps[]>([])
 
   const { loading, data, refetch } = useGetMessagesQuery({
     variables: { id: parseInt(idValue) },
   })
+  const [createMessage, createInfos] = useCreateMessageMutation({
+    refetchQueries: [{ query: GetMessagesDocument }],
+  })
+
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight)
+  }, [idValue, messages])
+
+  useEffect(() => {
+    socket.connect()
+    socket.emit('joinRoom', idValue)
+
+    socket.on('userJoined', (room) => {
+      setUserReceiverStatus(true)
+      console.log(`Joined room: ${room}`)
+    })
+
+    socket.on('message', (messagePayload) => {
+      console.log('messagePayload', messagePayload)
+      refetch()
+    })
+
+    return () => {
+      socket.emit('leaveRoom', idValue)
+      setUserReceiverStatus(false)
+      socket.disconnect()
+    }
+  }, [idValue])
 
   useEffect(() => {
     refetch()
     if (data) {
-      console.log('data', data)
       setMessages(data?.getMessages ?? [])
     } else {
       setMessages([])
     }
   }, [data, loading, id])
+
+  function getUsernames(): string[] {
+    let usernames: string[] = []
+    messages.forEach((message) => {
+      if (!usernames.includes(message.author.username)) {
+        if (message.author.id !== userId) {
+          usernames.push(message.author.username)
+        }
+      }
+    })
+    return usernames
+  }
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    setInputMessage(value)
+  }
+
+  const handleSubmit = () => {
+    if (inputMessage === '') return
+    /*  socket.emit('message', {
+      room: idValue,
+      message: inputMessage,
+      username: username,
+    }) */
+    createMessage({
+      variables: {
+        input: {
+          content: inputMessage,
+          conversationId: parseInt(idValue),
+        },
+      },
+    })
+      .then(() => {
+        setInputMessage('')
+      })
+      .catch((err: any) => {
+        console.log(err)
+      })
+  }
 
   return (
     <main className={styles.chat}>
@@ -54,8 +132,8 @@ const Chat = () => {
             <Avatar />
           </div>
           <div>
-            <h1>Florent Parigo</h1>
-            <p>Online</p>
+            <h1>{getUsernames()?.map((username) => `${username}`)}</h1>
+            <p>{userReceiverStatus ? 'Online' : 'Offline'}</p>
           </div>
         </div>
         <div className={styles.chat__header__actions}>
@@ -86,12 +164,18 @@ const Chat = () => {
           </label>
           <div className={styles.chat__footer__input}>
             <div>
-              <input type="text" name="submitText" id="text" />
+              <input
+                value={inputMessage}
+                onChange={handleChangeInput}
+                type="text"
+                name="submitText"
+                id="text"
+              />
               <div>
                 <Icon name="emote" />
               </div>
             </div>
-            <button>
+            <button onClick={handleSubmit}>
               <Icon name="send" />
             </button>
           </div>
@@ -136,12 +220,12 @@ const ChatContent = ({ messages, userId }: ChatContentProps) => {
             )}
             <div
               className={`${styles.chat__message} ${
-                userConnectedIsAuthor
+                !userConnectedIsAuthor
                   ? styles.message__left
                   : styles.message__right
               }`}
             >
-              {userConnectedIsAuthor && (
+              {!userConnectedIsAuthor && (
                 <div className={styles.chat__message__avatar}>
                   <Avatar displayStatus={false} />
                 </div>

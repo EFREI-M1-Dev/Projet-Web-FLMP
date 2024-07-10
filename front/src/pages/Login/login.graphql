@@ -1,6 +1,7 @@
 mutation Login($input: LoginUserInput!) {
   login(loginUserInput: $input) {
     user {
+      id
       username
       avatar
     }

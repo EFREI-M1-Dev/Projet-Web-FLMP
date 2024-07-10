@@ -5,9 +5,9 @@ import {
   useCreateConversationMutation,
   useGetContactsQuery,
 } from '../../generated/graphql'
-import Icon from "../../components/atoms/Icon";
-import Button from "../../components/atoms/Button";
-import moment from "moment";
+import Icon from '../../components/atoms/Icon'
+import Button from '../../components/atoms/Button'
+import moment from 'moment'
 
 type ContactType = {
   id: number
@@ -20,7 +20,7 @@ const AddContact = () => {
   const [research, setResearch] = useState<string>('')
   const [researchResults, setResearchResults] = useState<ContactType[]>([])
   const [isSearched, setIsSearched] = useState<boolean>(false)
-  const input = document.getElementById('input');
+  const input = document.getElementById('input')
 
   const { loading, data, refetch } = useGetContactsQuery({})
   const [createConversation] = useCreateConversationMutation({
@@ -68,22 +68,25 @@ const AddContact = () => {
 
   return (
     <div className={styles.add_contact}>
-      <h1>
-        Add a contact
-      </h1>
+      <h1>Add a contact</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
-          <input type="text" value={research} onChange={handleResearch} id="input" />
+          <input
+            type="text"
+            value={research}
+            onChange={handleResearch}
+            id="input"
+          />
           {research.length > 0 ? (
-              <button onClick={removeInput} type='reset'>
-                <Icon name='cross'/>
-              </button>
+            <button onClick={removeInput} type="reset">
+              <Icon name="cross" />
+            </button>
           ) : (
-              <></>
+            <></>
           )}
         </div>
-        <button type='submit'>
-          <Icon name='searchBold' color={'white'}/>
+        <button type="submit">
+          <Icon name="searchBold" color={'white'} />
         </button>
       </form>
       {loading ? (
@@ -99,17 +102,15 @@ const AddContact = () => {
               <div className={styles.infos}>
                 <img src={contact.avatar} alt={contact.username} />
                 <p>{contact.username}</p>
-                <p>
-                  @{contact.username}
-                </p>
+                <p>@{contact.username}</p>
                 <p>
                   Member since&nbsp;
-                  <span>
-                    {moment(contact.createdAt).format('DD/MM/YYYY')}
-                  </span>
+                  <span>{moment(contact.createdAt).format('DD/MM/YYYY')}</span>
                 </p>
               </div>
-              <Button onClick={() => handleCreateConversation(contact?.id)}>Add</Button>
+              <Button onClick={() => handleCreateConversation(contact?.id)}>
+                Add
+              </Button>
             </li>
           ))}
         </ul>

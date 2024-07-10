@@ -13,7 +13,6 @@ import NotFound from '../pages/NotFound'
 import AddContact from '../pages/AddContact'
 import Pagelayout from '../components/templates/PageLayout'
 
-
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -39,7 +38,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <Navigate to="/404" replace={true} />,
+    element: <Navigate to={ROUTES.NOT_FOUND} replace={true} />,
   },
 ])
 
@@ -54,18 +53,14 @@ export const authRouter = createBrowserRouter([
   },
   {
     path: '*',
-    element: <Navigate to="/login" replace={true} />,
+    element: <Navigate to={ROUTES.LOGIN} replace={true} />,
   },
 ])
 
 const ActualRouter = () => {
   const token = useAppSelector((state) => state.user)
 
-  return (
-    <RouterProvider
-      router={token.token ? router : authRouter}
-    />
-  )
+  return <RouterProvider router={token.token ? router : authRouter} />
 }
 
 export default ActualRouter
