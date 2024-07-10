@@ -3,8 +3,20 @@ import { IconHomeNews } from '../../components/atoms/Icons/IconHomeSvg.tsx'
 import { IconMeetHome } from '../../components/atoms/Icons/IconMeetHome.tsx'
 
 import skypeAvatar from '../../assets/img/skype-avatar.png'
+import { useGetUserQuery } from '../../generated/graphql.tsx'
+import { useEffect, useState } from 'react'
 
 const Homepage = () => {
+  const [user, setUser] = useState<string>('')
+
+  const { loading, data } = useGetUserQuery({})
+
+  useEffect(() => {
+    if (!loading && data?.getUser) {
+      setUser(data?.getUser?.username)
+    }
+  }, [data])
+
   return (
     <main className={styles.hp}>
       <section className={styles.hp__wrapper}>
@@ -13,7 +25,7 @@ const Homepage = () => {
             <img src={skypeAvatar} alt="Logo 100" />
             <div className={styles.hp__head__title}>
               <h1>Welcome!</h1>
-              <p>Florent Parigo</p>
+              <p>{user}</p>
             </div>
           </div>
           <div className={styles.hp__head__btn}>

@@ -5,6 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { BullModule } from '@nestjs/bull';
 import { MessagesProducer } from './messages.producer';
 import { MessagesConsumer } from './messages.consumer';
+import { ChatsGateway } from 'src/chats/chats.gateway';
 
 @Module({
   providers: [
@@ -13,6 +14,7 @@ import { MessagesConsumer } from './messages.consumer';
     PrismaService,
     MessagesProducer,
     MessagesConsumer,
+    ChatsGateway
   ],
   imports: [
     BullModule.registerQueue({

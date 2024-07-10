@@ -1,21 +1,22 @@
-div{
+.inputText {
+  label {
+    display: inline;
+    text-align: center;
+    font-size: 15px;
+  }
 
+  input {
+    position: relative;
 
+    display: block;
+    border-color: grey;
+    border-radius: 5px;
+    height: 40px;
+    width: 350px;
+    margin: 5px 0;
 
-    label{
-        display: inline;
-        text-align: center;
-        font-size: 15px;
-        
+    &.error {
+      border-color: red;
     }
-    input {
-        position: relative;
-
-        display: block;
-        border-color: grey;
-        border-radius: 5px;
-        height: 40px;
-        width: 350px;
-        margin: 5px 0;
-    }
+  }
 }

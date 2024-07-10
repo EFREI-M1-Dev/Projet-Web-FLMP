@@ -1,13 +1,17 @@
 import styles from './styles.module.scss'
+import React from 'react'
 
 type ButtonProps = {
-    text: string
+  children?: string | React.ReactElement[]
+  onClick?: () => void
 }
 
-const Button = ({text}: ButtonProps) => {
-    return (
-        <button className={styles.button}>{text}</button>
-    )
+const Button = ({ children, onClick }: ButtonProps) => {
+  return (
+    <button onClick={onClick} className={styles.button}>
+      {children}
+    </button>
+  )
 }
 
 export default Button
