@@ -93,18 +93,20 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var jsonData = pm.response.json();\r",
-							"\r",
 							"pm.test(\"Statut de la réponse : 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"La réponse renvoie le token\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('login');\r",
 							"    pm.expect(jsonData.data.login).to.have.property('token');\r",
 							"});\r",
 							"\r",
 							"var jsonData = pm.response.json();\r",
-							"pm.collectionVariables.set(\"authToken\", jsonData.data.login.token);"
+							"if (jsonData.data && jsonData.data.login) {\r",
+							"    pm.collectionVariables.set(\"authToken\", jsonData.data.login.token);\r",
+							"}"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -145,6 +147,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"La réponse contient une nouvelle conversation\", function () {\r",
+							"    pm.expect(jsonData.data).to.have.property('createConversation');\r",
 							"    pm.expect(jsonData.data.createConversation).to.have.property('id');\r",
 							"});"
 						],
@@ -288,6 +291,7 @@
 							"\r",
 							"pm.test(\"La réponse contient au moins une conversation\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('getConversations');\r",
 							"    pm.expect(jsonData.data.getConversations).to.be.an('array');\r",
 							"});"
 						],
@@ -338,6 +342,7 @@
 							"\r",
 							"pm.test(\"La réponse contient au moins un message\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('getMessages');\r",
 							"    pm.expect(jsonData.data.getMessages).to.be.an('array');\r",
 							"});"
 						],
@@ -388,6 +393,7 @@
 							"\r",
 							"pm.test(\"La réponse l'ID du User connecté\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('getUser');\r",
 							"    pm.expect(jsonData.data.getUser).to.have.property('id');\r",
 							"});"
 						],
@@ -429,7 +435,7 @@
 	"variable": [
 		{
 			"key": "authToken",
-			"value": "{{authToken}}"
+			"value": "0"
 		},
 		{
 			"key": "URL",
