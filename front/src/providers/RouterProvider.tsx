@@ -13,7 +13,6 @@ import NotFound from '../pages/NotFound'
 import AddContact from '../pages/AddContact'
 import Pagelayout from '../components/templates/PageLayout'
 
-
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -61,26 +60,7 @@ export const authRouter = createBrowserRouter([
 const ActualRouter = () => {
   const token = useAppSelector((state) => state.user)
 
-<<<<<<< HEAD
-  dispatch(
-    setLoggedUser({
-      token:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsaWNlIiwic3ViIjoxLCJpYXQiOjE3MjA1OTUxODIsImV4cCI6MTcyMDU5ODc4Mn0.-0uDPJXwkOEqEtTCKcTphn2JG4k8TBFF5UcfczwsemU',
-      user: {
-        id: 1,
-        username: 'test',
-        avatar: 'test',
-      },
-    })
-  )
-
-=======
->>>>>>> f5f808f (feat(login) : WIP but adding the capacity to create and log in your account)
-  return (
-    <RouterProvider
-      router={token.token ? router : authRouter}
-    />
-  )
+  return <RouterProvider router={token.token ? router : authRouter} />
 }
 
 export default ActualRouter
