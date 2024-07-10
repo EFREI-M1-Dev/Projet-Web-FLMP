@@ -1,14 +1,16 @@
 import Auth, {UserInfoProps} from '../../components/templates/Auth';
 import {useNavigate} from 'react-router-dom'
-import {FormEvent, useState} from 'react'
+import {FormEvent, useEffect, useState} from 'react'
 import {useLoginMutation} from '../../generated/graphql'
 import {useAppDispatch} from '../../hooks/reduxHooks';
 import {setLoggedUser} from '../../features/userConnected';
 import {ROUTES} from '../../config/constants';
+import styles from './styles.module.scss'
 
 const Login = () => {
 	const [userInfo, setUserInfo] = useState<UserInfoProps>({name: '', password: ''});
-	const [login] = useLoginMutation()
+	const [msgError, setMsgError] = useState<string>('')
+	const [login, { data, loading, error }] = useLoginMutation()
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
@@ -18,6 +20,8 @@ const Login = () => {
 		  ...userInfo,
 		  [name]: value,
 		})
+
+		setMsgError('');
 	};
 
 	const handleSubmit = async (event: FormEvent) => {
@@ -27,6 +31,7 @@ const Login = () => {
 
 		try {
 			if (!username || !password) {
+				setMsgError('Please fill all fields')
 				return
 		  	}
 	
@@ -40,7 +45,24 @@ const Login = () => {
 		} catch (e) {
 		  	console.error(e)
 		}
-	  }
+	}
+
+	useEffect(() => {
+		if (loading) {
+			return
+		}
+		if (data) {
+			console.log('Login successful:', data)
+		}
+		if (error) {
+			console.error('Error:', error)
+			setMsgError('An error occured')
+	
+			if (error.message === 'Unauthorized') {
+				setMsgError('Bad username or password !')
+			}
+		}
+	}, [data, loading, error])
 
 	return (
 		<form onSubmit={handleSubmit}>
@@ -51,6 +73,7 @@ const Login = () => {
 				redirectionLink='/register'
 				redirectionText='Create new account'
 				data={userInfo}
+				msgError={msgError}
 				onChange={handleChangeUserInfo}
 			/>
 		</form>

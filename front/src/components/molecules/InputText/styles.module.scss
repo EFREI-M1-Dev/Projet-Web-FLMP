@@ -16,5 +16,9 @@
     height: 40px;
     width: 350px;
     margin: 5px 0;
+
+    &.error {
+      border-color: red;
+    }
   }
 }

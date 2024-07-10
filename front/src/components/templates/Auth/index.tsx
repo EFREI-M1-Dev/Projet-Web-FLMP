@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import Button from '../../atoms/Button';
 import InputText from '../../molecules/InputText';
 import styles from './styles.module.scss'
-import { FormEvent, useState } from 'react'
 import skypeLogo from '../../../assets/img/skype-logo.svg'
 
 
@@ -19,10 +18,11 @@ type AuthPropType = {
 	redirectionLink: string,
 	redirectionText: string,
 	data: UserInfoProps,
+	msgError?: string,
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 };
 
-const Auth = ({title, info, buttonText, redirectionLink, redirectionText, data, onChange}: AuthPropType) => {
+const Auth = ({title, info, buttonText, redirectionLink, redirectionText, data, msgError, onChange}: AuthPropType) => {
 
 	return (
 		<div className={styles.container}>
@@ -38,18 +38,20 @@ const Auth = ({title, info, buttonText, redirectionLink, redirectionText, data, 
 					placeholder=''
 					name='name'
 					value={data.name}
+					msgError={msgError}
 					onChange={onChange}/>
 				
-
 				<InputText
 					label='Password'
 					inputType='password'
 					placeholder=''
 					name='password'
 					value={data.password}
+					msgError={msgError}
 					onChange={onChange}/>
 
 				<Button>{buttonText}</Button>
+				<span className={styles.error}>{msgError}</span>
 				<Link className={styles.link} to={redirectionLink}>{redirectionText}</Link>
 			</div>
 		</div>
