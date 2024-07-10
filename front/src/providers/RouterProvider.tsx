@@ -8,42 +8,11 @@ import Homepage from '../pages/Homepage'
 import Chat from '../pages/Chat'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
-import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks'
+import { useAppSelector } from '../hooks/reduxHooks'
 import NotFound from '../pages/NotFound'
-import { setLoggedUser } from '../features/userConnected'
 import AddContact from '../pages/AddContact'
 import Pagelayout from '../components/templates/PageLayout'
 
-/* export const router = createBrowserRouter([
-  {
-    path: ROUTES.HOME,
-    element: <Homepage />,
-  },
-  {
-    path: ROUTES.LOGIN,
-    element: <Login />,
-  },
-  {
-    path: ROUTES.REGISTER,
-    element: <Register />,
-  },
-  {
-    path: ROUTES.CHAT,
-    element: <Chat />,
-  },
-  {
-    path: ROUTES.ADD_CONTACT,
-    element: <AddContact />,
-  },
-  {
-    path: ROUTES.NOT_FOUND,
-    element: <NotFound />,
-  },
-  {
-    path: '*',
-    element: <Navigate to="/404" replace={true} />,
-  },
-]) */
 
 export const router = createBrowserRouter([
   {
@@ -90,25 +59,11 @@ export const authRouter = createBrowserRouter([
 ])
 
 const ActualRouter = () => {
-  const dispatch = useAppDispatch()
   const token = useAppSelector((state) => state.user)
-
-  dispatch(
-    setLoggedUser({
-      token:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJpYXQiOjE3MjA1MzEzODYsImV4cCI6MTcyMDUzNDk4Nn0.zF-vgFh5SZzUVMdgeb2BBIrSab3RK-7fyka_rRL92m8',
-      user: {
-        id: 1,
-        username: 'test',
-        avatar: 'test',
-      },
-    })
-  )
 
   return (
     <RouterProvider
       router={token.token ? router : authRouter}
-      /* fallbackElement={<BigSpinner />} */
     />
   )
 }

@@ -26,25 +26,20 @@
     .login{
         grid-row: 2;
         padding: 40px 0 0 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
 
+        h1{
+            font-size: 2.5rem;
+            font-weight: lighter;
+            text-align: center;
+        }
 
-
-        form{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 3rem;
-
-            h1{
-                font-size: 2.5rem;
-                font-weight: lighter;
-                text-align: center;
-            }
-
-            .link{
-                text-align: center;
-            }
+        .link{
+            text-align: center;
         }
     }
 }
