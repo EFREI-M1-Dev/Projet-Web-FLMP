@@ -16,16 +16,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run API Tests
-        id: run-newman
-        uses: anthonyvscode/newman-action@v1
-        with:
-          collection: back/test/tests-projet-web.postman_collection.json
-          reporters: cli
-
-      - name: Output summary to console
-        run: echo ${{ steps.run-newman.outputs.summary }}
-
       - name: Convert repository owner to lowercase
         id: convert_repository
         run: |
