@@ -49,7 +49,7 @@ const Auth = ({title, info, buttonText, redirectionLink, redirectionText, data, 
 					value={data.password}
 					onChange={onChange}/>
 
-				<Button text={buttonText}/>
+				<Button>{buttonText}</Button>
 				<Link className={styles.link} to={redirectionLink}>{redirectionText}</Link>
 			</div>
 		</div>

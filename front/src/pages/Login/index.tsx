@@ -26,19 +26,19 @@ const Login = () => {
 		const password = userInfo.password
 
 		try {
-		  if (!username || !password) {
-			return
-		  }
-
-		  const { data } = await login({
-			variables: { input: { username, password } },
-		  })
-		  if (data?.login.token) {
-			dispatch(setLoggedUser(data.login))
-			navigate(ROUTES.HOME)
-		  }
+			if (!username || !password) {
+				return
+		  	}
+	
+		  	const { data } = await login({
+				variables: { input: { username, password } },
+		  	})
+		  	if (data?.login.token) {
+				dispatch(setLoggedUser(data.login))
+				navigate(ROUTES.HOME)
+		  	}
 		} catch (e) {
-		  console.error(e)
+		  	console.error(e)
 		}
 	  }
 

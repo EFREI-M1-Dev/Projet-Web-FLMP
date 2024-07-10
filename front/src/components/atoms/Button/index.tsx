@@ -3,13 +3,12 @@ import React from "react";
 
 type ButtonProps = {
     children?: string | React.ReactElement[]
-    text: string,
     onClick?: () => void
 }
 
-const Button = ({text}: ButtonProps) => {
+const Button = ({children, onClick}: ButtonProps) => {
     return (
-        <button className={styles.button}>{text}</button>
+        <button onClick={onClick} className={styles.button}>{children}</button>
     )
 }
 

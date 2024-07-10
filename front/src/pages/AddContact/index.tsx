@@ -109,7 +109,7 @@ const AddContact = () => {
                   </span>
                 </p>
               </div>
-              <Button onClick={() => handleCreateConversation(contact?.id)} text={'add'} />
+              <Button onClick={() => handleCreateConversation(contact?.id)}>Add</Button>
             </li>
           ))}
         </ul>
