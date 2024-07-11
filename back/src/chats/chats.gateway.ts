@@ -22,7 +22,6 @@ export class ChatsGateway {
   ) {
     client.join(room);
     client.emit('joinedRoom', room);
-    console.log(`Client ${client.id} joined room ${room}`);
 
     client.to(room).emit('userJoined');
   }
@@ -34,7 +33,6 @@ export class ChatsGateway {
   ) {
     client.leave(room);
     client.emit('leftRoom', room);
-    console.log(`Client ${client.id} left room ${room}`);
 
     client.to(room).emit('userLeft');
   }
