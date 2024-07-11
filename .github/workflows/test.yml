@@ -28,4 +28,4 @@ jobs:
         run: npm install -g newman
 
       - name: Run Newman tests
-        run: newman run back/test/tests.postman_collection.json --timeout 20000
+        run: newman run --delay-request 500 back/test/tests.postman_collection.json
