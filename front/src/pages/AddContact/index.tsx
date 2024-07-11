@@ -63,12 +63,6 @@ const AddContact = () => {
     createConversation({
       variables: { input: { otherUserIds: [id] } },
     })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
   }
 
   return (
