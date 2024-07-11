@@ -60,13 +60,11 @@ const Chat = () => {
     socket.connect()
     socket.emit('joinRoom', idValue)
 
-    socket.on('userJoined', (room) => {
+    socket.on('userJoined', () => {
       setUserReceiverStatus(true)
-      console.log(room)
     })
 
-    socket.on('message', (messagePayload) => {
-      console.log('messagePayload', messagePayload)
+    socket.on('message', () => {
       refetch()
     })
 

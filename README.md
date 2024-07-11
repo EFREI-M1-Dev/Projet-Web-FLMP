@@ -13,13 +13,18 @@ Membres du Groupe 6 :
 
 Lien du rapport : [Lien](study.md)
 
+### Executer le projet en local
 ```sh
-docker compose  -f "docker-compose.yml" up -d --build postgres server redis
-```
+docker compose -f "docker-compose.yml" up -d postgres redis
 
-```sh
-docker compose  -f "docker-compose.yml" up -d --build postgres redis
 cd back
 npx prisma migrate dev
 npm run start:dev
+
+cd front
+npm run dev
+```
+
+```sh
+docker compose -f "docker-compose.yml" up -d --build postgres server redis
 ```

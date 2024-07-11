@@ -1,0 +1,490 @@
+{
+	"info": {
+		"_postman_id": "0aafe9be-8b5d-4357-a3ac-8ef3d6f059cd",
+		"name": "Test E2E projet web",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19924080"
+	},
+	"item": [
+		{
+			"name": "GetUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statut de la réponse : 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La réponse contient les utilisateurs\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.users).to.be.an('array');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query GetUsers{\r\n  users {\r\n    id\r\n    username\r\n  }\r\n}\r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User Failed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statut de la réponse : 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La réponse data renvoie null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.be.null;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation Login($input: LoginUserInput!) {\r\n  login(loginUserInput: $input) {\r\n    user {\r\n      username\r\n      avatar\r\n    }\r\n    token\r\n  }\r\n}\r\n\r\n",
+						"variables": "{\r\n  \"input\": {\r\n    \"username\": \"admin\",\r\n    \"password\": \"root\"\r\n  }\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statut de la réponse : 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La réponse renvoie le token\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.be.an('object');\r",
+							"    pm.expect(jsonData.data).to.have.property('login');\r",
+							"    pm.expect(jsonData.data.login).to.have.property('token');\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"if (jsonData.data && jsonData.data.login) {\r",
+							"    pm.collectionVariables.set(\"authToken\", jsonData.data.login.token);\r",
+							"} else {\r",
+							"    console.error('Login failed, no token received:', pm.response.json());\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation Login($input: LoginUserInput!) {\r\n  login(loginUserInput: $input) {\r\n    user {\r\n      username\r\n      avatar\r\n    }\r\n    token\r\n  }\r\n}\r\n\r\n",
+						"variables": "{\r\n  \"input\": {\r\n    \"username\": \"alice\",\r\n    \"password\": \"password\"\r\n  }\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateConversation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Statut de la réponse : 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La réponse contient une nouvelle conversation\", function () {\r",
+							"    pm.expect(jsonData.data).to.be.an('object');\r",
+							"    pm.expect(jsonData.data).to.have.property('createConversation');\r",
+							"    pm.expect(jsonData.data.createConversation).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"if (jsonData.data && jsonData.data.createConversation) {\r",
+							"    pm.environment.set(\"conversationId\", jsonData.data.createConversation.id);\r",
+							"} else {\r",
+							"    console.error('Create conversation failed:', pm.response.json());\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation createConversation($input: CreateConversationInput!) {\r\n    createConversation(createConversationInput: $input) {\r\n        id\r\n        createdAt\r\n        users {\r\n            id\r\n            username\r\n        }\r\n        messages {\r\n            id\r\n            content\r\n        createdAt\r\n        }\r\n    }\r\n}",
+						"variables": "{\r\n  \"input\": {\r\n    \"otherUserIds\": [1] \r\n  }\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateConversation  Not Logged",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statut de la réponse : 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Le body de la réponse renvoie non autorisé\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.errors[0].message).equal('Unauthorized');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation createConversation($input: CreateConversationInput!) {\r\n    createConversation(createConversationInput: $input) {\r\n        id\r\n        createdAt\r\n        users {\r\n            id\r\n            username\r\n        }\r\n        messages {\r\n            id\r\n            content\r\n        createdAt\r\n        }\r\n    }\r\n}",
+						"variables": "{\r\n  \"input\": {\r\n    \"otherUserIds\": [1] \r\n  }\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateMessage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statut de la réponse : 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Renvoie du message ajouté à la queue\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('createMessage');\r",
+							"    pm.expect(jsonData.data.createMessage).to.be.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation createMessage($input: SendMessageInput!) {\r\n  createMessage(createMessageInput: $input)\r\n}\r\n",
+						"variables": "{\r\n    \"input\":{\r\n        \"content\": \"Hello !\",\r\n        \"conversationId\": 1\r\n    }\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetConversations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statut de la réponse : 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La réponse contient au moins une conversation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.be.an('object');\r",
+							"    pm.expect(jsonData.data).to.have.property('getConversations');\r",
+							"    pm.expect(jsonData.data.getConversations).to.be.an('array');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\r\n  getConversations {\r\n    id\r\n    createdAt\r\n    users {\r\n      id\r\n      username\r\n    }\r\n    messages {\r\n      id\r\n      content\r\n      createdAt\r\n    }\r\n  }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMessages",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statut de la réponse : 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La réponse contient au moins un message\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.be.an('object');\r",
+							"    pm.expect(jsonData.data).to.have.property('getMessages');\r",
+							"    pm.expect(jsonData.data.getMessages).to.be.an('array');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query getMessages($id: Int!) {\r\n  getMessages(conversationId: $id) {\r\n    id\r\n    content\r\n    createdAt\r\n    author {\r\n      id\r\n      username\r\n      avatar\r\n    }\r\n  }\r\n}\r\n",
+						"variables": "{\r\n    \"id\": 1\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statut de la réponse : 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La réponse l'ID du User connecté\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.be.an('object');\r",
+							"    pm.expect(jsonData.data.user).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"if (pm.response.code !== 200) {\r",
+							"    console.error('GetUser failed:', pm.response.json());\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query getUser($username: String!) {\r\n  user(username: $username){\r\n    id\r\n    username\r\n  }\r\n}\r\n",
+						"variables": "{\r\n  \"username\": \"alice\"\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": "0"
+		},
+		{
+			"key": "URL",
+			"value": "http://localhost:3000/graphql"
+		}
+	]
+}

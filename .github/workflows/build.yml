@@ -8,31 +8,49 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Convert repository owner to lowercase
         id: convert_repository
         run: |
           OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          REPO=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
           echo "::set-output name=owner::${OWNER}"
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+          echo "::set-output name=repo::${REPO}"
 
       - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: ./back/Dockerfile
-          push: true
-          tags: ghcr.io/${{ steps.convert_repository.outputs.owner }}/backend:latest
+      - name: Build Docker image backend
+        run: docker build -t ghcr.io/${{ steps.convert_repository.outputs.owner }}/${{ steps.convert_repository.outputs.repo }}-backend:latest ./back
+
+      - name: Push Docker image to GitHub Container Registry (backend)
+        run: docker push ghcr.io/${{ steps.convert_repository.outputs.owner }}/${{ steps.convert_repository.outputs.repo }}-backend:latest
+
+      - name: Build Docker image frontend
+        run: docker build -t ghcr.io/${{ steps.convert_repository.outputs.owner }}/${{ steps.convert_repository.outputs.repo }}-frontend:latest ./front
+
+      - name: Push Docker image to GitHub Container Registry (frontend)
+        run: docker push ghcr.io/${{ steps.convert_repository.outputs.owner }}/${{ steps.convert_repository.outputs.repo }}-frontend:latest
+
+      - name: Deploy Back to Render.com
+        env:
+          deploy_url_back: ${{ secrets.RENDER_BACK_DEPLOY_HOOK_URL }}
+        run: |
+          curl -X POST $deploy_url_back
+
+      - name: Deploy Front to Render.com
+        env:
+          deploy_url_front: ${{ secrets.RENDER_FRONT_DEPLOY_HOOK_URL }}
+        run: |
+          curl -X POST $deploy_url_front

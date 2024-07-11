@@ -22,6 +22,8 @@ import { ChatsModule } from './chats/chats.module';
     BullModule.forRoot({
       redis: {
         host: process.env.REDIS_HOST,
+        username: process.env.REDIS_USERNAME,
+        password: process.env.REDIS_PASSWORD,
         port: Number(process.env.REDIS_PORT),
       },
     }),

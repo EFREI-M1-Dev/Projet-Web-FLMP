@@ -32,11 +32,7 @@ const Login = () => {
     if (loading) {
       return
     }
-    if (data) {
-      console.log('Login successful:', data)
-    }
     if (error) {
-      console.error('Error:', error)
       setMsgError('An error occured')
 
       if (error.message === 'Unauthorized') {
