@@ -41,6 +41,9 @@ const Chat = () => {
   const [messages, setMessages] = useState<MessageProps[]>([])
 
   const userId = useAppSelector((state: RootState) => state.user.id)
+  const opennedConversation = useAppSelector(
+    (state: RootState) => state.opennedConversation
+  )
 
   const { loading, data, refetch } = useGetMessagesQuery({
     variables: { id: parseInt(idValue) },
@@ -110,13 +113,9 @@ const Chat = () => {
           conversationId: parseInt(idValue),
         },
       },
+    }).then(() => {
+      setInputMessage('')
     })
-      .then(() => {
-        setInputMessage('')
-      })
-      .catch((err: Error) => {
-        console.log(err)
-      })
   }
 
   return (
@@ -127,7 +126,10 @@ const Chat = () => {
             <Avatar status={userReceiverStatus ? 'online' : 'offline'} />
           </div>
           <div>
-            <h1>{getUsernames()?.map((username) => `${username}`)}</h1>
+            <h1>
+              {opennedConversation?.username ??
+                getUsernames()?.map((username) => `${username}`)}
+            </h1>
             <p>{userReceiverStatus ? 'Online' : 'Offline'}</p>
           </div>
         </div>

@@ -27,7 +27,8 @@
       flex-direction: column;
       gap: 4px;
 
-      > a {
+      > a,
+      div {
         text-decoration: none;
 
         li {

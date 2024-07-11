@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 /* components */
 import Header from '../Header'
@@ -19,9 +19,13 @@ import {
 import useCleanTypename from '../../../../../hooks/useCleanTypeName'
 
 /* store */
-import { useAppSelector } from '../../../../../hooks/reduxHooks'
+import { useAppDispatch, useAppSelector } from '../../../../../hooks/reduxHooks'
+import { setOpennedConversation } from '../../../../../features/opennedConversation'
 
 const NavbarLeft = () => {
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   const [searchContact, setSearchContact] = useState<string>('')
   const [conversations, setConversations] = useState<Conversation[]>([])
 
@@ -46,6 +50,12 @@ const NavbarLeft = () => {
     setSearchContact(e.target.value)
   }
 
+  const handleGoToChat = (id: number, username: string[]) => {
+    const usernames = username.join(', ')
+    dispatch(setOpennedConversation({ id: id, username: usernames }))
+    navigate(`/chat/${id}`)
+  }
+
   return (
     <div className={styles.navbar_left}>
       <Header />
@@ -55,27 +65,30 @@ const NavbarLeft = () => {
         onChange={handleSearchContact}
       />
       <MenuSelection />
-      {/* tabs contact > filter */}
       <div className={styles.contact_list}>
         <span className={styles.date}>Today</span>
         <ul className={styles.list}>
           {conversations?.map((conversation: Conversation) => {
+            const usernameReceiver = conversation.users
+              .filter((user: User) => user.id !== idUser)
+              .map((user: User) => {
+                return user.username
+              })
+
             return (
-              <Link to={`chat/${conversation?.id}`}>
+              <div
+                onClick={() =>
+                  handleGoToChat(conversation?.id, usernameReceiver)
+                }
+              >
                 <li key={conversation.id}>
                   <Avatar />
                   <div className={styles.infos}>
-                    <span>
-                      {conversation.users
-                        .filter((user: User) => user.id !== idUser)
-                        .map((user: User) => {
-                          return user.username
-                        })}
-                    </span>
+                    <span>{usernameReceiver}</span>
                     <span>Online</span>
                   </div>
                 </li>
-              </Link>
+              </div>
             )
           })}
           <a href="chat/10">
