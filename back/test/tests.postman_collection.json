@@ -406,8 +406,7 @@
 							"pm.test(\"La réponse l'ID du User connecté\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData.data).to.be.an('object');\r",
-							"    pm.expect(jsonData.data).to.have.property('getUser');\r",
-							"    pm.expect(jsonData.data.getUser).to.have.property('id');\r",
+							"    pm.expect(jsonData.data.user).to.have.property('id');\r",
 							"});\r",
 							"\r",
 							"if (pm.response.code !== 200) {\r",
@@ -416,6 +415,13 @@
 						],
 						"type": "text/javascript",
 						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -435,8 +441,8 @@
 				"body": {
 					"mode": "graphql",
 					"graphql": {
-						"query": "query {\r\n  getUser {\r\n    id\r\n  }\r\n}",
-						"variables": ""
+						"query": "query getUser($username: String!) {\r\n  user(username: $username){\r\n    id\r\n    username\r\n  }\r\n}\r\n",
+						"variables": "{\r\n  \"username\": \"alice\"\r\n}"
 					}
 				},
 				"url": {
