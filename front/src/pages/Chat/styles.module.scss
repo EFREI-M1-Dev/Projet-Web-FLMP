@@ -8,9 +8,8 @@ $rightConv: #e5f6fd;
   max-height: 100vh;
   display: grid;
   grid-template-areas: 'header' 'content' 'footer';
-  grid-template-rows: 145px 8fr 150px;
+  grid-template-rows: 115px 8fr 150px;
   margin: 0 4rem;
-  padding-bottom: 200px;
 
   &__header {
     position: fixed;
@@ -74,7 +73,10 @@ $rightConv: #e5f6fd;
     flex-direction: column;
     gap: 2rem;
     margin-top: auto;
-    padding-bottom: 160px;
+    overflow-y: auto;
+    max-height: calc(100% - 115px - 150px);
+    min-height: 100%;
+    padding-bottom: 2rem;
   }
 
   &__message__day {

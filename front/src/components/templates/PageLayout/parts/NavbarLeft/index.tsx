@@ -34,7 +34,6 @@ const NavbarLeft = () => {
       const cleanedData = useCleanTypename(
         data.getConversations
       ) as Conversation[]
-      console.log('cleanedData:', cleanedData)
       const sortedConversations = cleanedData.slice().sort((a, b) => {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       })
