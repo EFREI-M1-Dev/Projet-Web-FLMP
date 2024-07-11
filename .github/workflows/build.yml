@@ -42,3 +42,15 @@ jobs:
 
       - name: Push Docker image to GitHub Container Registry (frontend)
         run: docker push ghcr.io/${{ steps.convert_repository.outputs.owner }}/${{ steps.convert_repository.outputs.repo }}-frontend:latest
+
+      - name: Deploy Back to Render.com
+        env:
+          deploy_url_back: ${{ secrets.RENDER_BACK_DEPLOY_HOOK_URL }}
+        run: |
+          curl -X POST $deploy_url_back
+
+      - name: Deploy Front to Render.com
+        env:
+          deploy_url_front: ${{ secrets.RENDER_FRONT_DEPLOY_HOOK_URL }}
+        run: |
+          curl -X POST $deploy_url_front
